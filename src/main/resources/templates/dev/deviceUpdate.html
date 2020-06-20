@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8"></meta>
+</head>
+<body>
+    <div th:fragment="deviceUpdate_contents">
+        <div class="row">
+            <div class="col-sm-5">
+                <div class="page-header">
+                    <h1>更新画面</h1>
+                </div>
+                <form method="post" th:action="@{/deviceUpdate}" th:object="${deviceForm}">
+                    <table class="table table-bordered table-hover">
+                        <!-- デバイスID（入力不可） -->
+                        <tr>
+                            <th class="active col-sm-2">デバイスID</th>
+                            <td class="col-sm-3">
+                                <div class="form-group">
+                                    <input type="text" class="form-control"
+                                        th:field="*{deviceId}"
+                                        readonly="readonly" />
+                                </div>
+                            </td>
+                        </tr>
+                        <!-- デバイス区分 -->
+                        <tr>
+                            <th class="active">区分</th>
+                            <td>
+                                <div class="form-group">
+                                    <div th:each="item : ${radioDeviceKbn}">
+                                        <input type="radio" name="radioDevice"
+                                            th:value="${item.key}"
+                                            th:text="${item.key}"
+                                            th:field="*{deviceKbn}">
+                                        </input>
+                                    </div>
+                                    <span class="text-danger"
+                                        th:if="${#fields.hasErrors('deviceKbn')}"
+                                        th:errors="*{deviceKbn}">
+                                        deviceKbn error
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                        <!-- 形番 -->
+                        <tr>
+                            <th class="active">型番</th>
+                            <td>
+                                <div class="form-group"
+                                    th:classappend="${#fields.hasErrors('kataban')} ? 'has-error'">
+                                    <input type="text" class="form-control"
+                                        th:field="*{kataban}" />
+                                    <span class="text-danger"
+                                        th:if="${#fields.hasErrors('kataban')}"
+                                        th:errors="*{kataban}">
+                                        kataban error
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <!-- 所有者 -->
+                            <th class="active">所有者</th>
+                            <td>
+                                <div class="form-group"
+                                    th:classappend="${#fields.hasErrors('owner')} ? 'has-error'">
+                                    <input type="text" class="form-control"
+                                        th:field="*{owner}" />
+                                    <span class="text-danger"
+                                        th:if="${#fields.hasErrors('owner')}"
+                                        th:errors="*{owner}">
+                                        owner error
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                        <!-- メーカー -->
+                        <tr>
+                            <th class="active">メーカー</th>
+                            <td>
+                                <div class="form-group"
+                                    th:classappend="${#fields.hasErrors('maker')} ? 'has-error'">
+								    <select id="maker" name="maker">
+								    	<option value="">---</option>
+								        <option th:each="selMaker : ${selectMaker}" 
+								        		th:value="${selMaker.key}" 
+								        		th:text="${selMaker.key}" 
+								        		th:selected="${selMaker.key} == *{maker}">pulldown</option>
+								    </select>
+                                    <span class="text-danger"
+                                        th:if="${#fields.hasErrors('maker')}"
+                                        th:errors="*{maker}">
+                                        maker error
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                        <!-- 購入日 -->
+                        <tr>
+                            <th class="active">購入日</th>
+                            <td>
+                                <div class="form-group"
+                                    th:classappend="${#fields.hasErrors('purchaseDate')} ? 'has-error'">
+                                    <input type="text" class="form-control"
+                                        placeholder="yyyy/MM/dd"
+                                        th:field="*{purchaseDate}" />
+                                    <span class="text-danger"
+                                        th:if="${#fields.hasErrors('purchaseDate')}"
+                                        th:errors="*{purchaseDate}">
+                                        birthday error
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <!-- 更新ボタン -->
+                    <button class="btn btn-primary btn-lg pull-right" type="submit" name="update">
+                        更新
+                    </button>
+                    <!-- 削除ボタン -->
+                    <button class="btn btn-danger btn-lg" type="submit" name="delete">
+                        削除
+                    </button>
+                    <!-- キャンセルボタン -->
+                    <button class="btn btn-danger btn-lg" type="submit" name="cancel">
+                        キャンセル
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

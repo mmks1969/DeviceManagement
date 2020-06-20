@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8"></meta>
+</head>
+<body>
+    <!-- コンテンツ部分 -->
+    <div th:fragment="deviceList_contents">
+        <div class="page-header">
+            <h1>Device List</h1>
+        </div>
+        <table class="table table-bordered table-hover table-striped">
+            <tr>
+                <th class="info col-sm-1 text-center">ID</th>
+                <th class="info col-sm-2 text-center">機器区分</th>
+                <th class="info col-sm-2 text-center">型番</th>
+                <th class="info col-sm-2 text-center">メーカー名</th>
+                <th class="info col-sm-2 text-center">所有者</th>
+                <th class="info col-sm-2 text-center">購入日</th>
+                <th class="info col-sm-1 text-center"></th>
+            </tr>
+            <tr th:each="device : ${deviceList}">
+                <td class="text-center" th:text="${device.deviceId}"></td>
+                <td th:text="${device.deviceKbn}"></td>
+                <td th:text="${device.kataban}"></td>
+                <td th:text="${device.maker}"></td>
+                <td th:text="${device.owner}"></td>
+                <td class="text-center" th:text="${device.purchaseDate}"></td>
+                <td class="text-center">
+                    <!-- ユーザー詳細画面へのリンク -->
+                    <a class="btn btn-primary" th:href="@{'/deviceDetail/' + ${device.deviceId}}">
+                        詳細
+                    </a>
+                </td>
+            </tr>
+        </table>
+        <!-- ユーザー一覧の件数 -->
+        <label th:text=" '合計：' + ${deviceListCount} + '件' "></label><br/>
+        <!-- 更新・削除処理の結果表示用 -->
+        <label class="text-info" th:text="${result}">結果表示</label><br/>
+        <!-- CSV出力用のリンク -->
+        <a class="btn btn-primary" th:href="@{'/deviceList/csv'}">CSV出力</a>
+    </div>
+</body>
+</html>

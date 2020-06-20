@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"></meta>
+
+    <!-- Bootstrapの設定 -->
+    <link th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}" rel="stylesheet"></link>
+    <script th:src="@{/webjars/jquery/1.11.1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+
+    <title>SignUp</title>
+</head>
+<body>
+    <div th:fragment="signup_contents">
+
+    <div class="col-sm-5">
+        <div class="page-header">
+            <h1>新規登録</h1>
+        </div>
+        <form method="post" enctype="multipart/form-data" th:action="@{/signup}" th:object="${deviceForm}">
+            <table class="table table-bordered table-hover">
+                <!-- ユーザーIDの入力エリア -->
+                <tr>
+                    <th class="active col-sm-3 text-right">デバイスID</th>
+                    <td>
+                        <div class="form-group"
+                            th:classappend="${#fields.hasErrors('deviceId')} ? 'has-error'">
+                            <input type="text" class="form-control" 
+                                th:field="*{deviceId}" readonly="readonly"/>
+                            <span class="text-danger"
+                                th:if="${#fields.hasErrors('deviceId')}"
+                                th:errors="*{deviceId}">
+                                deviceId error
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+                <!-- デバイス区分の入力エリア -->
+                <tr>
+                    <th class="active text-right">区分</th>
+                    <td>
+                        <div class="form-group"
+                            th:classappend="${#fields.hasErrors('deviceKbn')} ? 'has-error'">
+                            <!-- ラジオボタン -->
+                            <div th:each="item : ${radioDeviceKbn}">
+	                            <input type="radio" name="radioDevice"
+	                            	th:text="${item.key}"
+	                            	th:value="${item.key}"
+	                            	th:field="*{deviceKbn}">
+	                            </input>
+                            </div>
+                            <span class="text-danger"
+                                th:if="${#fields.hasErrors('*{deviceKbn}')}"
+                                th:errors="*{deviceKbn}">
+                                deviceKbn error
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+                <!-- 形番の入力エリア -->
+                <tr>
+                    <th class="active text-right">型番</th>
+                    <td>
+                        <div class="form-group"
+                            th:classappend="${#fields.hasErrors('kataban')} ? 'has-error'">
+                            <input type="text" class="form-control"
+                                th:field="*{kataban}" />
+                            <span class="text-danger"
+                                th:if="${#fields.hasErrors('kataban')}"
+                                th:errors="*{kataban}">
+                                kataban error
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+                <!-- 所有者の入力エリア -->
+                <tr>
+                    <th class="active text-right">所有者</th>
+                    <td>
+                        <div class="form-group"
+                            th:classappend="${#fields.hasErrors('owner')} ? 'has-error'">
+                            <input type="text" class="form-control"
+                                th:field="*{owner}" />
+                            <span class="text-danger"
+                                th:if="${#fields.hasErrors('owner')}"
+                                th:errors="*{owner}">
+                                owner error
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+                <!-- メーカーの入力エリア -->
+                <tr>
+                    <th class="active text-right">メーカー</th>
+                    <td>
+                        <div class="form-group"
+                            th:classappend="${#fields.hasErrors('maker')} ? 'has-error'">
+						    <select id="jobId" name="maker">
+						    	<option value="">---</option>
+						        <option th:each="selMaker : ${selectMaker}" 
+						        		th:value="${selMaker.key}" 
+						        		th:text="${selMaker.key}" >pulldown</option>
+						    </select>
+                            <span class="text-danger"
+                                th:if="${#fields.hasErrors('maker')}"
+                                th:errors="*{maker}">
+                                maker error
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+                <!-- 購入日の入力エリア -->
+                <tr>
+                    <th class="active text-right">購入日</th>
+                    <td>
+                        <div class="form-group"
+                            th:classappend="${#fields.hasErrors('purchaseDate')} ? 'has-error'">
+                            <input type="text" class="form-control" placeholder="yyyy/MM/dd"
+                                th:field="*{purchaseDate}" />
+                            <span class="text-danger"
+                                th:if="${#fields.hasErrors('purchaseDate')}"
+                                th:errors="*{purchaseDate}">
+                                purchaseDate error
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                	<th class="active text-right">添付ファイル</th>
+                	<td>
+                		<input th:field="*{file}" type="file" multiple/>
+                	</td>
+                </tr>
+            </table>
+            <!-- ユーザー登録ボタン -->
+            <button class="btn btn-primary" type="submit" name="signup">
+            	登録
+            </button>
+        </form>
+    </div>
+    </div>
+</body>
+</html>
