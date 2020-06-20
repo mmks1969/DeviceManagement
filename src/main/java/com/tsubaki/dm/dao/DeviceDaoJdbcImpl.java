@@ -19,7 +19,9 @@ public class DeviceDaoJdbcImpl implements DeviceDao {
     @Autowired
     JdbcTemplate jdbc;
 
-    // Userテーブルの件数を取得.
+    /**
+     * デバイスの件数を取得する
+     */
     @Override
     public int count() throws DataAccessException {
 
