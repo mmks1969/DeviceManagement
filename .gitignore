@@ -31,3 +31,4 @@ build/
 .vscode/
 /DeviceList.csv
 /sample.csv
+/bin/
