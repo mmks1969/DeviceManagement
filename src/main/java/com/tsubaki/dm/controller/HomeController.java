@@ -252,7 +252,7 @@ public class HomeController {
 
         }
 
-        //ユーザー一覧画面を表示
+        // デバイス一覧画面を表示
         return getDeviceList(model);
     }
 
