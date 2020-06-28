@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.tsubaki.dm.model.GroupOrder;
 import com.tsubaki.dm.model.UserSignupForm;
 
 @Controller
@@ -43,7 +44,7 @@ public class UserSignupController {
 	
 	// ユーザー登録画面のPOSTコントローラ
 	@PostMapping("/userSignup")
-	public String postUserSignup(@ModelAttribute @Validated UserSignupForm form, BindingResult bindingResult, Model model) {
+	public String postUserSignup(@ModelAttribute @Validated(GroupOrder.class) UserSignupForm form, BindingResult bindingResult, Model model) {
 		
 		// 入力チェックに引っかかった場合、ユーザー登録画面に戻る
 		if(bindingResult.hasErrors()) {
