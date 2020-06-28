@@ -45,7 +45,7 @@ public class SignupController {
     private VvsService vvsService;
     
     @Autowired
-    private HomeController homeController;
+    private DeviceController homeController;
     
     // ラジオボタン（デバイス区分:deviceKbn）の変数
     private Map<String, String> radioDeviceKbn;
