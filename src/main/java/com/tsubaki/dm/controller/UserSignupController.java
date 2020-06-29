@@ -3,6 +3,7 @@ package com.tsubaki.dm.controller;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,10 +13,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.tsubaki.dm.model.GroupOrder;
+import com.tsubaki.dm.model.User;
 import com.tsubaki.dm.model.UserSignupForm;
+import com.tsubaki.dm.service.UserService;
 
 @Controller
 public class UserSignupController {
+	
+	@Autowired
+	private UserService userService;
 
 	// ラジオボタンの実装
 	private Map<String, String> radioMarriage;
@@ -54,6 +60,27 @@ public class UserSignupController {
 		
 		// formの中身をコンソールに出して確認する
 		System.out.println(form);
+		
+		// insert用変数
+		User user = new User();
+		
+		user.setUserId(form.getUserId());
+		user.setPassword(form.getPassword());
+		user.setUserName(form.getUserName());
+		user.setBirthday(form.getBirthday());
+		user.setAge(form.getAge());
+		user.setMarriage(form.isMarriage());
+		user.setRole("ROLE_GENERAL");
+		
+		// ユーザー登録処理
+		boolean result = userService.insert(user);
+		
+		// ユーザー登録結果の判定
+		if(result == true) {
+			System.out.println("insert成功");
+		} else {
+			System.out.println("insert失敗");
+		}
 		
 		// login.htmlにリダイレクト
 		return "redirect:/login";

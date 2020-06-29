@@ -3,6 +3,7 @@ package com.tsubaki.dm.dao;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.integration.IntegrationProperties.Jdbc;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -13,7 +14,7 @@ import com.tsubaki.dm.model.User;
 public class UserDaoJdbcImpl implements UserDao {
 	
 	@Autowired
-	JdbcTemplate jdbcTemplate;
+	JdbcTemplate jdbc;
 	
 	// Userテーブルの件数を取得
 	@Override
@@ -23,7 +24,16 @@ public class UserDaoJdbcImpl implements UserDao {
 
 	// Userテーブルにデータを1件insert
 	public int insertOne(User user) throws DataAccessException{
-		return 0;
+		int rowNumber = jdbc.update("INSERT INTO m_user(user_id,password,user_name,birthday,age,marriage,role)"
+				+ "VALUES(?,?,?,?,?,?,?)"
+				, user.getUserId()
+				, user.getPassword()
+				, user.getUserName()
+				, user.getBirthday()
+				, user.getAge()
+				, user.isMarriage()
+				, user.getRole());
+		return rowNumber;
 	}
 	
 	// Userテーブルのデータを1件取得
