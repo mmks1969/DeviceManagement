@@ -46,7 +46,7 @@ public class HomeController {
     	int count = userService.count();
     	model.addAttribute("userListCount",count);
     	
-    	return "login/homeLayout";
+    	return "dev/homeLayout";
     }
     
     /**
