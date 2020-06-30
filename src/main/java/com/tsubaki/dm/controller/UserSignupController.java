@@ -69,6 +69,7 @@ public class UserSignupController {
 		user.setUserName(form.getUserName());
 		user.setBirthday(form.getBirthday());
 		user.setAge(form.getAge());
+//		user.setMarriage(form.isMarriage());
 		user.setMarriage(form.isMarriage());
 		user.setRole("ROLE_GENERAL");
 		

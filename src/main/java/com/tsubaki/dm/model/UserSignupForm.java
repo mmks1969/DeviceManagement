@@ -27,7 +27,7 @@ public class UserSignupForm {
 	@Pattern(regexp = "^[a-zA-Z0-9]+$", groups = ValidGroup3.class)
 	private String password; // パスワード
 	
-	// 必須入力
+	// 必須入力　ユーザー名
 	@NotBlank(groups = ValidGroup1.class)
 	private String userName; // ユーザー名
 	

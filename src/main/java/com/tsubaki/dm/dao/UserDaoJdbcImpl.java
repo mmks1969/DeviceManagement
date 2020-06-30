@@ -47,6 +47,7 @@ public class UserDaoJdbcImpl implements UserDao {
 	
 	// Userテーブルの全データを取得
 	public List<User> selectMany() throws DataAccessException{
+		
 		// m_userマスタのデータを全件取得
 		List<Map<String, Object>> getList = jdbc.queryForList("SELECT * FROM m_user");
 		
