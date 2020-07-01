@@ -41,4 +41,8 @@ public class UserService {
 		return dao.selectMany();
 	}
 
+	// 1件取得用メソッド
+	public User selectOne(String userId){
+		return dao.selectOne(userId);
+	}
 }

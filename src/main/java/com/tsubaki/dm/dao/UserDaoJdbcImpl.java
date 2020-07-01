@@ -42,7 +42,29 @@ public class UserDaoJdbcImpl implements UserDao {
 	
 	// Userテーブルのデータを1件取得
 	public User selectOne(String userId) throws DataAccessException{
-		return null;
+		// 一見取得
+		Map<String, Object> map = jdbc.queryForMap("SELECT * FROM m_user WHERE user_id = ?", userId);
+		
+		// 結果返却用の変数
+		User user = new User();
+
+		// MySQLのBooleanはTinyintなので、ここでBooleanに変換しておく
+		int tesInt =(Integer)map.get("marriage");
+		Boolean marriageBoolean = true;
+		if (tesInt == 0) {
+			marriageBoolean = false; 
+		}
+
+		// 取得したデータを結果返却用の変数にセットしていく
+		user.setUserId((String)map.get("user_id"));
+		user.setPassword((String)map.get("password"));
+		user.setUserName((String)map.get("user_name"));
+		user.setBirthday((Date)map.get("birthday"));
+		user.setAge((Integer)map.get("age"));
+		user.setMarriage(marriageBoolean);
+		user.setRole((String)map.get("role"));
+		
+		return user;
 	}
 	
 	// Userテーブルの全データを取得
@@ -59,20 +81,27 @@ public class UserDaoJdbcImpl implements UserDao {
 			// Userインスタンスの生成
 			User user = new User();
 			
+			// MySQLのBooleanはTinyintなので、ここでBooleanに変換しておく
+			int tesInt =(Integer)map.get("marriage");
+			Boolean marriageBoolean = true;
+			if (tesInt == 0) {
+				marriageBoolean = false; 
+			}
+			
 			// Userインスタンスに取得したデータをセットする
 			user.setUserId((String)map.get("user_id"));
 			user.setPassword((String)map.get("password"));
 			user.setUserName((String)map.get("user_name"));
 			user.setBirthday((Date)map.get("birthday"));
 			user.setAge((Integer)map.get("age"));
-			user.setMarriage((Boolean)map.get("marriage"));
+			user.setMarriage(marriageBoolean);
 			user.setRole((String)map.get("role"));
 			
 			// 結果返却用のListに追加
 			userList.add(user);
 		}
 		
-		return null;
+		return userList;
 	}
 	
 	// Userテーブルを1件更新
