@@ -8,7 +8,7 @@
     <!-- コンテンツ部分 -->
     <div th:fragment="userList_contents">
         <div class="page-header">
-            <h1>ゆーざーりすと</h1>
+            <h1>USER LIST</h1>
         </div>
         <table class="table table-bordered table-hover table-striped">
             <tr>
@@ -16,7 +16,7 @@
                 <th class="info col-sm-2 text-center">ユーザ名</th>
                 <th class="info col-sm-2 text-center">誕生日</th>
                 <th class="info col-sm-2 text-center">年齢</th>
-                <th class="info col-sm-2 text-center">結婚</th>
+                <th class="info col-sm-2 text-center">既婚</th>
                 <th class="info col-sm- text-center"></th>
             </tr>
             <tr th:each="user : ${userList}">
