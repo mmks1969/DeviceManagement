@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.tsubaki.dm.model.User;
 
-@Repository
+@Repository("UserDaoJdbcImpl")
 public class UserDaoJdbcImpl implements UserDao {
 	
 	@Autowired

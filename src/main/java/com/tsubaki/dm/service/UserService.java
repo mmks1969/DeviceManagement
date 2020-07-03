@@ -3,6 +3,7 @@ package com.tsubaki.dm.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.tsubaki.dm.dao.UserDao;
@@ -12,6 +13,7 @@ import com.tsubaki.dm.model.User;
 public class UserService {
 	
 	@Autowired
+	@Qualifier("UserDaoJdbcImpl2")
 	UserDao dao;
 	
 	// insert用メソッド
