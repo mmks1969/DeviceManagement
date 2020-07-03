@@ -12,7 +12,7 @@
                 <div class="page-header">
                     <h1>ユーザー詳細</h1>
                 </div>
-                <form method="get" th:action="@{/userDetail}" th:object="${userSignupForm}">
+                <form method="post" th:action="@{/userDetail}" th:object="${userSignupForm}">
                     <table class="table table-bordered table-hover">
                         <!-- ユーザーID（入力不可） -->
                         <tr>
@@ -87,11 +87,11 @@
                         </tr>
                     </table>
                     <!-- 更新ボタン -->
-                    <button class="btn btn-primary btn-lg" type="submit" name="userUpdate">
+                    <button class="btn btn-primary btn-lg" type="submit" name="update">
                         更新
                     </button><br><br>
                     <!-- 削除ボタン -->
-                    <button class="btn btn-danger btn-lg" type="submit" name="userDelete">
+                    <button class="btn btn-danger btn-lg" type="submit" name="delete">
                         削除
                     </button>
                 </form>
