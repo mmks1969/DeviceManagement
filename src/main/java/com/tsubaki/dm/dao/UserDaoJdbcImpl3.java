@@ -20,24 +20,24 @@ public class UserDaoJdbcImpl3 extends UserDaoJdbcImpl {
     @Override
     public User selectOne(String userId) {
 
-        //１件取得用SQL
+        // １件取得用SQL
         String sql = "SELECT * FROM m_user WHERE user_id = ?";
 
-        //RowMapperの生成
+        // RowMapperの生成
         RowMapper<User> rowMapper = new BeanPropertyRowMapper<User>(User.class);
 
-        //SQL実行
+        // SQL実行
         return jdbc.queryForObject(sql, rowMapper, userId);
     }
 
-    //ユーザー全件取得
+    // ユーザー全件取得
     @Override
     public List<User> selectMany() {
 
-        //M_USERテーブルのデータを全件取得するSQL
+        // M_USERテーブルのデータを全件取得するSQL
         String sql = "SELECT * FROM m_user";
 
-        //RowMapperの生成
+        // RowMapperの生成
         RowMapper<User> rowMapper = new BeanPropertyRowMapper<User>(User.class);
 
         //SQL実行

@@ -13,7 +13,7 @@ import com.tsubaki.dm.model.User;
 public class UserService {
 	
 	@Autowired
-	@Qualifier("UserDaoJdbcImpl3")
+	@Qualifier("UserDaoJdbcImpl4")
 	UserDao dao;
 	
 	// insert用メソッド

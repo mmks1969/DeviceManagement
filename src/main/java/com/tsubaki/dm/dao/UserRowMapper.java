@@ -3,7 +3,6 @@ package com.tsubaki.dm.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import org.springframework.jdbc.core.RowMapper;
-import com.tsubaki.dm.model.DeviceBean;
 import com.tsubaki.dm.model.User;
 
 public class UserRowMapper implements RowMapper<User> {

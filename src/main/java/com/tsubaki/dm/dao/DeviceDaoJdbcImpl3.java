@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.tsubaki.dm.model.DeviceBean;
 
-@Repository("UserDaoJdbcImpl3")
+@Repository("DeviceDaoJdbcImpl3")
 public class DeviceDaoJdbcImpl3 extends DeviceDaoJdbcImpl {
 
     @Autowired

@@ -1,6 +1,5 @@
 package com.tsubaki.dm.controller;
 
-import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.tsubaki.dm.model.User;
 import com.tsubaki.dm.model.UserSignupForm;
-import com.tsubaki.dm.service.DeviceService;
 import com.tsubaki.dm.service.UserService;
 
 @Controller

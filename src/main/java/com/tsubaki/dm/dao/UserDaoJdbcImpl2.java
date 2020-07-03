@@ -7,7 +7,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import com.tsubaki.dm.model.FileBean;
 import com.tsubaki.dm.model.User;;
 
 @Repository("UserDaoJdbcImpl2")
