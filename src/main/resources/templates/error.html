@@ -7,7 +7,7 @@
 <body>
 	<!-- 各種エラー内容の表示 -->
 	<h1 th:text="${status} + '' + ${error}"></h1>
-	<p th:test="${message}"></p>
+	<p th:text="${message}"></p>
 	<p>ログイン画面に戻ってください</p>
 	<form method="post" th:action="@{/logout}">
 		<button class="btn btn-link" type="submit">ログイン画面に戻る</button>
