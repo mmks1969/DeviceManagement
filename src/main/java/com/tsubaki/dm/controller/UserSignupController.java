@@ -112,7 +112,7 @@ public class UserSignupController {
 		model.addAttribute("error", "内部サーバーエラー:ExceptionHandler");
 		
 		// 例外クラスのメッセージをモデルに登録
-		model.addAttribute("message","UserSignupControllerでDataAccessExceptionが発生しました");
+		model.addAttribute("message","UserSignupControllerでExceptionが発生しました");
 		
 		// HTTPのエラーコード(500)をModelに登録
 		model.addAttribute("status",HttpStatus.INTERNAL_SERVER_ERROR);
