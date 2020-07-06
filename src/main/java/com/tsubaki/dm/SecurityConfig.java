@@ -49,6 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/css/* *").permitAll()
 				.antMatchers("/login").permitAll()
 				.antMatchers("/userSignup").permitAll()
+				.antMatchers("/admin").hasAuthority("ROLE_ADMIN")
 				.anyRequest().authenticated();
 		
 		// ログイン処理
@@ -70,7 +71,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				
 		
 		// CSRF対策を無効に設定（一時的）
-		http.csrf().disable();
+//		http.csrf().disable();
 	}
 	
 	@Override
