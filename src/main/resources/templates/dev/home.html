@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8"></meta>
 </head>
@@ -9,6 +10,26 @@
     <div th:fragment="home_contents">
         <div class="page-header">
             <h1>☆☆☆新着情報☆☆☆</h1>
+            <!-- ユーザー情報 -->
+            <p>
+            	ユーザーID：<span sec:authentication="name"></span>
+            </p>
+            <!-- 独自ユーザー情報 -->
+            <p>
+            	principal.userId：<span sec:authentication="principal.userId"></span>
+            </p>
+            <p>
+            	テナントID：<span sec:authentication="principal.tenantId"></span>
+            </p>
+            <p>
+            	ロール：<span sec:authentication="principal.authorities"></span>
+            </p>
+            <p>
+            	ログインミス回数：<span sec:authentication="principal.loginMissTimes"></span>
+            </p>
+            <p>
+            	パスワード更新日付：<span sec:authentication="principal.passUpdateDate"></span>
+            </p>
         </div>
     </div>
 </body>

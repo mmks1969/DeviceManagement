@@ -11,13 +11,7 @@
 </head>
 <body class="text-center">
 	<h1>Login</h1>
-	<form method="post" action="/login">
-		<p th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']} != null"
-			th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"
-			class="text-danger">
-		ログインエラーメッセージ
-		</p>
-		
+	<form id="loginForm" method="post" th:action="@{/login}">
 		<!-- ユーザーＩＤ -->
 		<label>ユーザーＩＤ</label>
 		<input type="text" name="userId" /><br/>
@@ -26,12 +20,17 @@
 		<label>パスワード</label>
 		<input type="password" name="password"/><br/>
 		<br/>
-		<!-- CSRF対策トークン -->
-		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
 		<!-- ログインボタン -->
 		<button class="btn btn-primary" type="submit">ログイン</button>
 		</form>
 	<br/>
+		<p th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']} != null"
+			th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"
+			class="text-danger">
+		ログインエラーメッセージ
+		</p>
+		
 	<a th:href="@{'/userSignup'}">ユーザー新規登録はこちら</a>
 
 </body>

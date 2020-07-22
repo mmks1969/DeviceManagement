@@ -22,6 +22,9 @@
         <div class="container-fluid">
             <div class="navbar-header">
                 <a class="navbar-brand" href="#">Device Management</a>
+                <p class="navbar-brand">
+               	 ユーザー名：<span sec:authentication="principal.appUserName"></span>
+               	</p>
             </div>
             <form method="post" th:action="@{/logout}">
                 <button class="btn btn-link pull-right navbar-brand" type="submit">

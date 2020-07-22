@@ -10,6 +10,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,11 +18,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.tsubaki.dm.model.AppUserDetails;
 import com.tsubaki.dm.model.User;
 import com.tsubaki.dm.model.UserSignupForm;
 import com.tsubaki.dm.service.UserService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
+@Slf4j
 public class HomeController {
 
     @Autowired
@@ -45,7 +50,14 @@ public class HomeController {
      * ホーム画面のGET用メソッド
      */
     @GetMapping("/home")
-    public String getHome(Model model) {
+    public String getHome(Model model, @AuthenticationPrincipal AppUserDetails user) {
+    	
+    	log.info("HomeController Start");
+    	
+    	// ログインユーザー情報の表示
+    	log.info(user.toString());
+    	
+    	log.info("HomeController End");
 
         //コンテンツ部分にユーザー詳細を表示するための文字列を登録
         model.addAttribute("contents", "dev/home :: home_contents");

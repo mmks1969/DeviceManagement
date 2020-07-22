@@ -19,7 +19,25 @@
 		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
 	</properties>
 
+	<!-- spring-cloud-sleuth -->
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-sleuth</artifactId>
+				<version>2.2.2.RELEASE</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	
 	<dependencies>
+		<!-- spring-cloud-sleuth -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-sleuth</artifactId>
+		</dependency>
 		<!-- SpringJDBC -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
