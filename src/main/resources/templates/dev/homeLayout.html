@@ -46,7 +46,13 @@
                     	</a>
                     </li>
                     <li role="presentation">
-                    	<a th:href="@{'/userList'}">
+<!--                     	<a th:href="@{'/userList'}">   -->
+<!--                    	<a th:href="@{'/userDetail/mitsushi.kohara@gmail.com'}">   -->
+<!--                    	<a th:href="@{'/userDetail/sec:authentication="principal.userId"'}">   -->
+<!--                    	<a th:href="@{'/userDetail/' + ${sec:authentication="principal.userId"}}">   -->
+<!--                    	<a th:href="@{'/userDetail/${#authentication.name}}">   -->
+                    	<a th:href="@{|/userDetail/${#authentication.name}|}">
+<!--						<a th:href="@{|~/${#authentication.name}/edit|}" class="text-left">Settings</a>   -->
                     	<button class="btn btn-primary btn-sm" type="submit">
                     	ユーザー管理
                     	</button>
@@ -60,7 +66,8 @@
                     	</a>
                     </li>
                     <li role="presentation" sec:authorize="hasRole('ADMIN')">
-                    	<a th:href="@{'/admin'}">
+<!--                     	<a th:href="@{'/admin'}"> -->
+						<a th:href="@{'/userList'}">
                     	<button class="btn btn-primary btn-sm" type="submit" name="update">
                     	アドミン用画面
                     	</button>

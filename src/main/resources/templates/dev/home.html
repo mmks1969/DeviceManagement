@@ -10,6 +10,9 @@
     <div th:fragment="home_contents">
         <div class="page-header">
             <h1>☆☆☆新着情報☆☆☆</h1>
+<div th:text="${#authentication.principal}">
+  Authentication.getPrincipal()
+</div>
             <!-- ユーザー情報 -->
             <p>
             	ユーザーID：<span sec:authentication="name"></span>

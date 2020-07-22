@@ -11,11 +11,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mysql.cj.xdevapi.Result;
 import com.tsubaki.dm.model.User;
 import com.tsubaki.dm.service.RestService;
 
-import ch.qos.logback.core.joran.conditional.IfAction;
 
 @RestController
 public class UserRestController {
