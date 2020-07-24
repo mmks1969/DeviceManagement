@@ -37,7 +37,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		return user;
 	}
 	
-	// パスワードを更新する
+	/**
+	 * パスワードを更新する
+	 * パスワード更新日を3ヶ月後に設定する
+	 * @param userId
+	 * @param password
+	 * @throws ParseException
+	 */
 	public void updatePasswordDate(String userId, String password) throws ParseException {
 		
 		// パスワード暗号化
@@ -54,7 +60,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		repository.updatePassword(userId, encryptPass, date);
 	}
 	
-	// 失敗回数と有効・無効フラグを更新する
+	/**
+	 * 失敗回数と有効・無効フラグを更新する
+	 * パスワードを間違えた場合に失敗回数を一つ増やし、ログイン失敗回数の上限を超えたときに
+	 * アカウントをロックする
+	 * @param userId
+	 * @param loginMissTime
+	 */
 	public void updateUnlock(String userId, int loginMissTime) {
 		
 		// 有効・無効フラグ（有効）
@@ -69,5 +81,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		repository.updateUnlock(userId, loginMissTime, unlock);
 	}
 	
+	/**
+	 * ログイン失敗回数を0に更新する
+	 * ログインに成功した時にログイン失敗回数を0にリセットする
+	 * @param userId
+	 */
+	public void updateLoginMissTimes(String userId) {
+		
+		// ログイン失敗回数を0に戻す
+		repository.updateLoginMissTimes(userId);
+	}
 
 }

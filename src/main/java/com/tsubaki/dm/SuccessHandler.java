@@ -42,6 +42,9 @@ public class SuccessHandler implements AuthenticationSuccessHandler {
 		
 		String redirectPath = request.getContextPath();
 		
+		// ログイン失敗回数をリセット
+		service.updateLoginMissTimes(user.getUserId());
+		
 		// パスワード更新日付のチェック
 		if (user.getPassUpdateDate().after(new Date())) {
 			// パスワード期限が切れていない

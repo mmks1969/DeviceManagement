@@ -63,7 +63,17 @@ public class LoginUserRepository {
 			+ "     un_lock = ?"
 			+ " WHERE user_id = ?";
 	
-	// ユーザー情報を取得してUserDetailsを生成するメソッド
+	// ログイン失敗回数を0にリセットするSQL
+	private static final String RESET_LOGIN_MISS_TIMES_SQL =
+			"UPDATE m_user"
+			+ " SET login_miss_times = 0"
+			+ " WHERE user_id = ?";
+	
+	/**
+	 * ユーザー情報を取得してUserDetailsを生成するメソッド
+	 * @param userId
+	 * @return
+	 */
 	public UserDetails selectOne(String userId) {
 		
 		// select実行（ユーザーの取得）
@@ -78,7 +88,11 @@ public class LoginUserRepository {
 		return user;
 	}
 	
-	// 権限リストを取得するメソッド
+	/**
+	 * 権限リストを取得するメソッド
+	 * @param userId
+	 * @return
+	 */
 	private List<GrantedAuthority> getRoleList(String userId){
 		
 		// select実行（ユーザー権限の取得）
@@ -101,7 +115,12 @@ public class LoginUserRepository {
 		return grantedAuthorityList;
 	}
 	
-	// ユーザークラスの作成
+	/**
+	 * ユーザークラスの作成
+	 * @param userMap
+	 * @param grantedAuthorityList
+	 * @return
+	 */
 	private AppUserDetails buildUserDetails(Map<String, Object> userMap, List<GrantedAuthority> grantedAuthorityList){
 		
 		// Mapから値を取得
@@ -137,7 +156,14 @@ public class LoginUserRepository {
 		return user;
 	}
 	
-	// パスワードと期限を更新するメソッド
+	// 
+	/**
+	 * パスワードと期限を更新するメソッド
+	 * @param userId
+	 * @param password
+	 * @param passwordUpdateDate
+	 * @return
+	 */
 	public int updatePassword(String userId, String password, Date passwordUpdateDate) {
 		
 		// パスワード更新
@@ -146,11 +172,30 @@ public class LoginUserRepository {
 		return result;
 	}
 	
-	// ログイン失敗回数と有効・無効フラグを更新する
+	/**
+	 * ログイン失敗回数と有効・無効フラグを更新する
+	 * @param userId
+	 * @param loginMissTime
+	 * @param unlock
+	 * @return
+	 */
 	public int updateUnlock(String userId, int loginMissTime, boolean unlock) {
 		
 		// 失敗回数の更新
 		int result = jdbc.update(UPDATE_LOCK_SQL,loginMissTime, unlock, userId);
+		
+		return result;
+	}
+	
+	/**
+	 * ログイン失敗回数を0にリセットする
+	 * @param userId
+	 * @return
+	 */
+	public int updateLoginMissTimes(String userId) {
+		
+		// 失敗回数を0にリセットする
+		int result = jdbc.update(RESET_LOGIN_MISS_TIMES_SQL, userId);
 		
 		return result;
 	}
