@@ -1,6 +1,7 @@
 package com.tsubaki.dm.dao;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -35,9 +36,27 @@ public class UserDaoJdbcImpl implements UserDao {
 		// パスワード暗号化
 		String password = passwordEncoder.encode(user.getPassword());
 		
+		// パスワード更新日付（3カ月先）の作成
+		Date date = new Date();
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		calendar.add(Calendar.MONTH, 3);
+		date = calendar.getTime();
+
 		// ユーザーテーブルに1件登録するSQL
-		String sql = "INSERT INTO m_user(user_id,password,user_name,birthday,age,marriage,role)"
-						+ "VALUES(?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO m_user(user_id"
+						+ ",password"
+						+ ",user_name"
+						+ ",birthday"
+						+ ",age"
+						+ ",marriage"
+						+ ",pass_update_date"
+						+ ",login_miss_times"
+						+ ",un_lock"
+						+ ",mail_address"
+						+ ",enabled"
+						+ ",user_due_date)"
+					+ "VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
 		
 		int rowNumber = jdbc.update(sql
 				, user.getUserId()
@@ -46,7 +65,19 @@ public class UserDaoJdbcImpl implements UserDao {
 				, user.getBirthday()
 				, user.getAge()
 				, user.isMarriage()
-				, user.getRole());
+				, date
+				, 0
+				, 1
+				, user.getUserId()
+				, 1
+				, "2099/12/31");
+		
+		if (rowNumber > 0) {
+			// t_user_roleテーブルに1件登録するSQL。roleはgeneral
+			sql = "INSERT INTO t_user_role(user_id,role_id) VALUES(?,?)";
+			rowNumber = jdbc.update(sql,user.getUserId(),"general");
+		}
+		
 		return rowNumber;
 	}
 	
@@ -72,7 +103,7 @@ public class UserDaoJdbcImpl implements UserDao {
 		user.setBirthday((Date)map.get("birthday"));
 		user.setAge((Integer)map.get("age"));
 		user.setMarriage(marriageBoolean);
-		user.setRole((String)map.get("role"));
+//		user.setRole((String)map.get("role"));
 		
 		return user;
 	}
@@ -105,7 +136,7 @@ public class UserDaoJdbcImpl implements UserDao {
 			user.setBirthday((Date)map.get("birthday"));
 			user.setAge((Integer)map.get("age"));
 			user.setMarriage(marriageBoolean);
-			user.setRole((String)map.get("role"));
+//			user.setRole((String)map.get("role"));
 			
 			// 結果返却用のListに追加
 			userList.add(user);

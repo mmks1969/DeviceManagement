@@ -31,7 +31,7 @@ public class UserResultSetExtractor implements ResultSetExtractor<List<User>> {
             user.setUserName(rs.getString("user_name"));
             user.setBirthday(rs.getDate("birthday"));
             user.setAge(rs.getInt("age"));
-            user.setRole(rs.getString("role"));
+//            user.setRole(rs.getString("role"));
 
             //ListにUserを追加
             
