@@ -2,25 +2,32 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8"></meta>
-	
+<!-- 	
 	<link th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}" rel="stylesheet"><link>
 	<script th:src="@{webjars/jquery/1.11.1/jquery.min.js}"></script>
 	<script th:src="@{webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+ -->
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.2.1/css/bootstrap.min.css}" />
+    <script th:src="@{/webjars/jquery/3.3.1-1/jquery.min.js}"></script>
+	<script th:src="@{/webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
 	
 <title>User SignUp</title>
 </head>
 <body>
-	<div class="col-sm-5">
+	<div class="container text-center">
 		<div class="page-header">
-			<h1>ユーザー登録画面</h1>
+			<h1>新規登録</h1>
 		</div>
+		<div class="row">
+		<div class="col-lg-3"></div>
+		<div class="col-lg-6">
 		<form method="post" th:action="@{/userSignup}" th:object="${userSignupForm}">
-			<table class="table table-bordered table-hover">
+			<table class="table table-bordered">
 				<!-- ユーザＩＤ -->
 				<tr>
-					<th class="active col-sm-3">ユーザＩＤ</th>
+					<th scope="row">ユーザＩＤ</th>
 					<td>
-						<div class="form-group" th:classappend="${#fields.hasErrors('userId')}?'has-error'">
+						<div scope="col" th:classappend="${#fields.hasErrors('userId')}?'has-error'">
 							<input type="text" class="form-control" th:field="*{userId}"/>
 							<span class="text-danger" th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}">
 								userId error
@@ -32,7 +39,7 @@
 				<tr>
 					<th class="active">パスワード</th>
 					<td>
-						<div class="form-group" th:classappend="${#fields.hasErrors('password')}?'has-error'">
+						<div scope="row" th:classappend="${#fields.hasErrors('password')}?'has-error'">
 							<input type="text" class="form-control" th:field="*{password}"/>
 							<span class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
 								password error
@@ -42,7 +49,7 @@
 				</tr>
 				<!-- ユーザー名 -->
 				<tr>
-					<th class="active">ユーザー名</th>
+					<th scope="row">ユーザー名</th>
 					<td>
 						<div class="form-group" th:classappend="${#fields.hasErrors('userName')}?'has-error'">
 							<input type="text" class="form-control" th:field="*{userName}"/>
@@ -54,7 +61,7 @@
 				</tr>
 				<!-- 誕生日 -->
 				<tr>
-					<th class="active">誕生日</th>
+					<th scope="row">誕生日</th>
 					<td>
 						<div class="form-group" th:classappend="${#fields.hasErrors('birthday')}?'has-error'">
 							<input type="text" class="form-control" placeholder="yyyy/MM/dd" th:field="*{birthday}" />
@@ -66,7 +73,7 @@
 				</tr>
 				<!-- 年齢 -->
 				<tr>
-					<th class="active">年齢</th>
+					<th scope="row">年齢</th>
 					<td>
 						<div class="form-group" th:classappend="${#fields.hasErrors('age')}?'has-error'">
 							<input type="text" class="form-control" th:field="*{age}" />
@@ -78,7 +85,7 @@
 				</tr>
 				<!-- 結婚 -->
 				<tr>
-					<th class="active">結婚</th>
+					<th scope="row">結婚</th>
 					<td>
 						<div class="form-group">
 							<div th:each="item : ${radioMarriage}">
@@ -102,35 +109,10 @@
 			<!--  ユーザー登録ボタン -->
 			<button class="btn btn-primary" type="submit">ユーザー登録</button>
 		</form>
+		</div>
+		<div class="col-lg-3"></div>
+		</div>
 	</div>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

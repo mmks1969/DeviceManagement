@@ -6,17 +6,17 @@
 </head>
 <body>
     <div th:fragment="deviceUpdate_contents">
+        <div class="page-header my-3">
+            <h1>更新画面</h1>
+        </div>
         <div class="row">
-            <div class="col-sm-5">
-                <div class="page-header">
-                    <h1>更新画面</h1>
-                </div>
+            <div class="col-sm-6">
                 <form method="post" th:action="@{/deviceUpdate}" th:object="${deviceForm}">
                     <table class="table table-bordered table-hover">
                         <!-- デバイスID（入力不可） -->
                         <tr>
-                            <th class="active col-sm-2">デバイスID</th>
-                            <td class="col-sm-3">
+                            <th scope="col">デバイスID</th>
+                            <td scope="col">
                                 <div class="form-group">
                                     <input type="text" class="form-control"
                                         th:field="*{deviceId}"
@@ -26,7 +26,7 @@
                         </tr>
                         <!-- デバイス区分 -->
                         <tr>
-                            <th class="active">区分</th>
+                            <th scope="col">区分</th>
                             <td>
                                 <div class="form-group">
                                     <div th:each="item : ${radioDeviceKbn}">
@@ -46,7 +46,7 @@
                         </tr>
                         <!-- 形番 -->
                         <tr>
-                            <th class="active">型番</th>
+                            <th scope="col">型番</th>
                             <td>
                                 <div class="form-group"
                                     th:classappend="${#fields.hasErrors('kataban')} ? 'has-error'">
@@ -62,7 +62,7 @@
                         </tr>
                         <tr>
                             <!-- 所有者 -->
-                            <th class="active">所有者</th>
+                            <th scope="col">所有者</th>
                             <td>
                                 <div class="form-group"
                                     th:classappend="${#fields.hasErrors('owner')} ? 'has-error'">
@@ -78,7 +78,7 @@
                         </tr>
                         <!-- メーカー -->
                         <tr>
-                            <th class="active">メーカー</th>
+                            <th scope="col">メーカー</th>
                             <td>
                                 <div class="form-group"
                                     th:classappend="${#fields.hasErrors('maker')} ? 'has-error'">
@@ -99,7 +99,7 @@
                         </tr>
                         <!-- 購入日 -->
                         <tr>
-                            <th class="active">購入日</th>
+                            <th scope="col">購入日</th>
                             <td>
                                 <div class="form-group"
                                     th:classappend="${#fields.hasErrors('purchaseDate')} ? 'has-error'">

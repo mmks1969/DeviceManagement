@@ -7,60 +7,59 @@
 </head>
 <body>
     <div th:fragment="devicelDetail_contents">
+        <div class="page-header my-3">
+            <h1>詳細情報</h1>
+        </div>
         <div class="row">
-            <div class="col-sm-5">
-                <div class="page-header">
-                    <h1>詳細情報</h1>
-                </div>
+            <div class="col-sm-6">
                 <form method="get" th:action="@{/deviceUpdate} + '/' +  ${deviceForm.deviceId} " th:object="${deviceForm}">
- <p><i class="far fa-trash-alt"></i>ここにアイコンを表示</p>
-                    <table class="table table-bordered table-hover" th:object="${deviceForm}">
+                    <table class="table table-bordered table-hover table-responsive-sm" th:object="${deviceForm}">
                         <!-- デバイスID -->
                         <tr>
-                            <th class="active col-sm-2 text-right">デバイスID</th>
-                            <td class="col-sm-3" th:text="*{deviceId}"></td>
+                            <th scope="col">デバイスID</th>
+                            <td scope="col" th:text="*{deviceId}"></td>
                         </tr>
                         <!-- デバイス区分 -->
                         <tr>
-                            <th class="active text-right">デバイス区分</th>
+                            <th scope="col">デバイス区分</th>
                             <td th:text="*{deviceKbn}"></td>
                         </tr>
                         <!-- 型番 -->
                         <tr>
-                            <th class="active text-right">型番</th>
+                            <th scope="col">型番</th>
                             <td th:text="*{kataban}"></td>
                         </tr>
                         <!-- 所有者 -->
                         <tr>
-                            <th class="active text-right">所有者</th>
+                            <th scope="col">所有者</th>
                             <td th:text="*{owner}"></td>
                         </tr>
                         <!-- メーカー -->
                         <tr>
-                            <th class="active text-right">メーカー</th>
+                            <th scope="col">メーカー</th>
                             <td th:text="*{maker}"></td>
                         </tr>
                         <!-- 購入日 -->
                         <tr>
-                            <th class="active text-right">購入日</th>
+                            <th scope="col">購入日</th>
                             <td th:text="*{purchaseDate}"></td>
                         </tr>
                         <!-- 登録日時 -->
                         <tr>
-                            <th class="active text-right">登録日時</th>
+                            <th scope="col">登録日時</th>
                             <td th:text="*{creationdate}"></td>
                         </tr>
                         <!-- 最終更新日時 -->
                         <tr>
-                            <th class="active text-right">最終更新日時</th>
+                            <th scope="col">最終更新日時</th>
                             <td th:text="*{lastupdate}"></td>
                         </tr>
                     </table>
                     <!-- 更新ボタン -->
                     <button class="btn btn-primary btn-lg" type="submit" name="deviceUpdate">
-                        変更
+						変更
                     </button><br><br>
-                    添付ファイル
+						添付ファイル
                     <table class="table table-bordered table-hover" >
                         <!-- 添付ファイル -->
                         <tr th:each="files : ${fileBeanList}">
@@ -68,16 +67,11 @@
 			                <td class="text-center">
 			                    <!-- 添付ファイルの削除のリンク -->
 			                    <p><i class="far fa-trash-alt"></i></p>
-			                    <!-- 
-			                    <a class="btn btn-primary" th:href="@{'/deviceDetail/' + ${files.fileName}}">
-			                        削除
-			                    </a>
-			                     -->
 			                </td>
 			                <td class="text-center">
 			                    <!-- 添付ファイルの削除のリンク -->
 			                    <a class="btn btn-primary" th:href="@{'/deviceDetail/' + ${files.fileName}}">
-			                        差替え
+									差替え
 			                    </a>
 			                </td>
                         </tr>

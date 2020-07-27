@@ -7,32 +7,36 @@
 <body>
     <!-- コンテンツ部分 -->
     <div th:fragment="userList_contents">
-        <div class="page-header">
-            <h1>ゆーざー　 りすと</h1>
+        <div class="page-header my-3">
+            <h1>USER LIST</h1>
         </div>
+        <div class="mr-5">
         <table class="table table-bordered table-hover table-striped">
-            <tr>
-                <th class="info col-sm-2 text-center">ユーザID</th>
-                <th class="info col-sm-2 text-center">☆ユーザ名</th>
-                <th class="info col-sm-2 text-center">誕生日</th>
-                <th class="info col-sm-2 text-center">年齢</th>
-                <th class="info col-sm-2 text-center">既婚</th>
-                <th class="info col-sm- text-center"></th>
-            </tr>
-            <tr th:each="user : ${userList}">
-                <td class="text-center" th:text="${user.userId}"></td>
-                <td th:text="${user.userName}"></td>
-                <td th:text="${#dates.format(user.birthday,'yyyy/MM/dd')}"></td>
-                <td th:text="${user.age}"></td>
-                <td th:text="${user.marriage}?'既婚':'未婚'"></td>
-                <td class="text-center">
-                    <!-- ユーザー詳細画面へのリンク -->
-                    <a class="btn btn-primary" th:href="@{'/userDetail/' + ${user.userId}}">
-                        詳細
-                    </a>
-                </td>
-            </tr>
+        	<thead class="thead-dark">
+	            <tr>
+	                <th scope="col">ユーザID</th>
+	                <th scope="col">ユーザ名</th>
+	                <th scope="col">誕生日</th>
+	                <th scope="col">年齢</th>
+	                <th scope="col">既婚</th>
+	                <th scope="col"></th>
+	            </tr>
+			</thead>
+			<tbody>
+	            <tr th:each="user : ${userList}">
+	                <td th:text="${user.userId}"></td>
+	                <td th:text="${user.userName}"></td>
+	                <td th:text="${#dates.format(user.birthday,'yyyy/MM/dd')}"></td>
+	                <td th:text="${user.age}"></td>
+	                <td th:text="${user.marriage}?'既婚':'未婚'"></td>
+	                <td class="text-center">
+	                    <!-- ユーザー詳細画面へのリンク -->
+	                    <a class="btn btn-primary" th:href="@{'/userDetail/' + ${user.userId}}">詳細</a>
+	                </td>
+	            </tr>
+            </tbody>
         </table>
+        </div>
         <!-- ユーザー一覧の件数 -->
         <label th:text=" '合計：' + ${userListCount} + '件' "></label><br/>
         <!-- 更新・削除処理の結果表示用 -->

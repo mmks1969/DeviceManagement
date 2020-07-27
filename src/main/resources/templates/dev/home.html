@@ -8,11 +8,10 @@
 <body>
     <!-- ポイント：th:fragment -->
     <div th:fragment="home_contents">
-        <div class="page-header">
+        <div class="page-header my-3">
             <h1>☆☆☆新着情報☆☆☆</h1>
-<div th:text="${#authentication.principal}">
-  Authentication.getPrincipal()
-</div>
+        </div>
+        <div>
             <!-- ユーザー情報 -->
             <p>
             	ユーザーID：<span sec:authentication="name"></span>
@@ -33,7 +32,7 @@
             <p>
             	パスワード更新日付：<span sec:authentication="principal.passUpdateDate"></span>
             </p>
-        </div>
+       </div>
     </div>
 </body>
 </html>
