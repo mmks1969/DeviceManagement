@@ -66,18 +66,6 @@ public class DeviceController {
     	return combMaker;
     }
     
-   /**
-     * ホーム画面のGET用メソッド
-     */
-//    @GetMapping("/home")
-//    public String getHome(Model model) {
-
-        //コンテンツ部分にユーザー詳細を表示するための文字列を登録
-//        model.addAttribute("contents", "dev/home :: home_contents");
-
-//        return "dev/homeLayout";
-//    }
-
     /**
      * デバイス一覧画面のGETメソッド用処理.
      */
@@ -267,16 +255,6 @@ public class DeviceController {
     	return getDeviceList(model);
     }
     
-    /**
-     * ログアウト用処理.
-     */
-//    @PostMapping("/logout")
-//    public String postLogout() {
-
-        //ログイン画面にリダイレクト
-//        return "redirect:/login";
-//    }
-
     /**
      * デバイス一覧のCSV出力用処理.
      */
