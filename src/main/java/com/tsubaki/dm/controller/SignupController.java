@@ -31,6 +31,7 @@ import com.tsubaki.dm.model.GroupOrder;
 import com.tsubaki.dm.service.DeviceService;
 import com.tsubaki.dm.service.FileService;
 import com.tsubaki.dm.service.VvsService;
+import com.tsubaki.dm.util.ExternalPropertiesUtil;
 
 @Controller
 public class SignupController {
@@ -47,7 +48,10 @@ public class SignupController {
     @Autowired
     private DeviceController homeController;
     
-    // ラジオボタン（デバイス区分:deviceKbn）の変数
+	@Autowired
+	ExternalPropertiesUtil externalProp;
+
+	// ラジオボタン（デバイス区分:deviceKbn）の変数
     private Map<String, String> radioDeviceKbn;
     
     // コンボボックス（メーカー:maker）の変数
@@ -199,7 +203,8 @@ public class SignupController {
     	
         for (MultipartFile file : multipartFiles) {
         	String deviceId = form.getDeviceId();
-            Path uploadfile = Paths.get("/Users/khr/VaultLoc/torisetsu/" + deviceId + "_" +file.getOriginalFilename());
+        	String filepath = externalProp.get("FILE_PATH");
+            Path uploadfile = Paths.get(filepath + deviceId + "_" +file.getOriginalFilename());
             try (OutputStream os = Files.newOutputStream(uploadfile, StandardOpenOption.CREATE)) {
               byte[] bytes = file.getBytes();
               os.write(bytes);
