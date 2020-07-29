@@ -63,7 +63,7 @@
                     <table class="table table-bordered table-hover" >
                         <!-- 添付ファイル -->
                         <tr th:each="files : ${fileBeanList}">
-                            <td><a th:text="${files.originalFileName}" th:href="@{'/Users/khr/VaultLoc/torisetsu/' + ${files.fileName}}">link</a></td>
+                            <td><a th:text="${files.originalFileName}" th:href="@{'c:\\filesys\\VaultLoc\\torisetsu\\' + ${files.fileName}}">link</a></td>
 			                <td class="text-center">
 			                    <!-- 添付ファイルの削除のリンク -->
 			                    <p><i class="far fa-trash-alt"></i></p>
@@ -74,7 +74,6 @@
 									差替え
 			                    </a>
 			                </td>
-                        </tr>
                     </table>
                 </form>
             </div>
