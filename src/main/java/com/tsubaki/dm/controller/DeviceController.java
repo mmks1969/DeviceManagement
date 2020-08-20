@@ -6,6 +6,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpHeaders;
@@ -17,6 +21,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tsubaki.dm.model.DeviceBean;
 import com.tsubaki.dm.model.DeviceForm;
@@ -24,6 +29,7 @@ import com.tsubaki.dm.model.FileBean;
 import com.tsubaki.dm.service.DeviceService;
 import com.tsubaki.dm.service.FileService;
 import com.tsubaki.dm.service.VvsService;
+import com.tsubaki.dm.util.DownloadImage;
 
 @Controller
 public class DeviceController {
@@ -37,7 +43,10 @@ public class DeviceController {
     @Autowired
     private VvsService vvsService;
     
-    // ラジオボタン（デバイス区分:deviceKbn）の変数
+	@Autowired
+	DownloadImage downloadImage;
+
+	// ラジオボタン（デバイス区分:deviceKbn）の変数
     private Map<String, String> radioDeviceKbn;
     
     // コンボボックス（メーカー:maker）の変数
@@ -73,7 +82,7 @@ public class DeviceController {
     public String getDeviceList(Model model) {
 
         // コンテンツ部分にデバイス一覧を表示するための文字列を登録
-        model.addAttribute("contents", "dev/deviceList :: deviceList_contents");
+        model.addAttribute("contents", "dev/deviceList2 :: deviceList_contents");
 
         // デバイス一覧の生成
         List<DeviceBean> deviceList = deviceService.selectMany();
@@ -283,5 +292,28 @@ public class DeviceController {
         // DeviceList.csvを戻す
         return new ResponseEntity<>(bytes, header, HttpStatus.OK);
     }
+    
+    /**
+     * PDF表示処理
+     */
+    @PostMapping(value = "/pdfDisp")
+    public String postPdfDisp(@ModelAttribute DeviceForm form
+    		, Model model,HttpSession httpSession
+			,HttpServletRequest request
+			,HttpServletResponse response
+			,@RequestParam("key") String fileName) {
 
+    	// コンテンツ部分にユーザー詳細を表示するための文字列を登録
+        model.addAttribute("contents", "com/pdfDisp :: pdf_contents");
+        model.addAttribute("p_key", fileName);
+
+        // デバイスIDのチェック
+        if (fileName != null && fileName.length() > 0) {
+        	System.out.println(fileName);
+        }
+
+    	//ユーザー一覧画面を表示
+        return "dev/dispLayout";
+    }
+    
 }

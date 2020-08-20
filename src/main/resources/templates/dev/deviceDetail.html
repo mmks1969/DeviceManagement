@@ -4,9 +4,25 @@
 <head>
     <meta charset="UTF-8"></meta>
     <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+
 </head>
 <body>
     <div th:fragment="devicelDetail_contents">
+
+    <script th:inline="javascript">
+	/*<![CDATA[*/
+
+    function zumenDispDo(key) {
+			//alert("key:" + key);
+			document.PdfListForm.key.value = key;
+			document.PdfListForm.action = /*[[@{/pdfDisp}]]*/;
+			document.PdfListForm.target = "_blank";
+			document.PdfListForm.submit();
+		}
+	
+	/*]]>*/
+    </script>
+ 
         <div class="page-header my-3">
             <h1>詳細情報</h1>
         </div>
@@ -59,15 +75,20 @@
                     <button class="btn btn-primary btn-lg" type="submit" name="deviceUpdate">
 						変更
                     </button><br><br>
+                </form>
 						添付ファイル
+				<form  name="PdfListForm" method="post">
                     <table class="table table-bordered table-hover" >
                         <!-- 添付ファイル -->
                         <tr th:each="files : ${fileBeanList}">
-                            <td><a th:text="${files.originalFileName}" th:href="@{'c:\\filesys\\VaultLoc\\torisetsu\\' + ${files.fileName}}">link</a></td>
-			                <td class="text-center">
+							<td>
+								<a th:text="${files.originalFileName}" th:href="|javascript:zumenDispDo('${files.fileName}')|"></a>
+							</td>
+<!-- 			                <td class="text-center"> -->
 			                    <!-- 添付ファイルの削除のリンク -->
-			                    <p><i class="far fa-trash-alt"></i></p>
+<!--			                    <p><i class="far fa-trash-alt"></i></p>
 			                </td>
+ -->
 			                <td class="text-center">
 			                    <!-- 添付ファイルの削除のリンク -->
 			                    <a class="btn btn-primary" th:href="@{'/deviceDetail/' + ${files.fileName}}">
@@ -75,7 +96,11 @@
 			                    </a>
 			                </td>
                     </table>
-                </form>
+                    <!-- CSRF対策用トークン -->
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+					<!-- 図面表示用 -->
+					<input type="hidden" th:name="key" value=""/>
+				</form>
             </div>
         </div>
     </div>

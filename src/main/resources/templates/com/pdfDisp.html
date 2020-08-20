@@ -1,0 +1,22 @@
+<!--
+	ファイル名	: pdfDisp.html
+	機能		: 図面表示画面(図番表示フレーム)
+-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8"></meta>
+
+
+</head>
+
+<body>
+	<form>
+		<div th:fragment="pdf_contents">
+				<object class="pdf-disp" id="pdf" data=""></object>
+		</div>
+	</form>
+</body>
+</html>

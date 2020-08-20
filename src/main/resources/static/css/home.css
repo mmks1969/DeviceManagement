@@ -1,11 +1,11 @@
 body {
-  padding-top: 50px;
+  padding-top: 70px;
 }
 
 .sidebar {
   position: fixed;
   display: block;
-  top: 50px;
+  top: 70px;
   bottom: 0;
   background-color: #F4F5F7;
 }
@@ -21,4 +21,9 @@ body {
 
 .page-header {
   margin-top: 0px;
+}
+
+.pdf-disp{
+	width : 100%;
+	height : 80vh;
 }

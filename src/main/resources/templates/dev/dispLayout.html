@@ -14,12 +14,30 @@
     <!-- CSSの読込 -->
     <link th:href="@{/css/home.css}" rel="stylesheet"></link>
     
-	<!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.21/datatables.min.css"/> -->
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.21/fh-3.1.7/datatables.min.css"/>
 
     <title>Home</title>
+    
+    <script th:inline="javascript">
+	/*<![CDATA[*/
+
+	// ・初期処理
+	function funcStart() {
+		// 図面ファイルを設定する
+		funcZumenfile();
+	}
+
+	function funcZumenfile(key) {
+		var dest = /*[[@{/getImage}]]*/;
+		var $obj = document.getElementById("pdf");
+		$obj.data = dest + "?p_key=" + /*[[${p_key}]]*/;
+	}
+		
+	/*]]>*/
+	</script>
+    
 </head>
-<body>
+<body onload="JavaScript:funcStart();">
     <!-- ===== ヘッダー（ナビゲーションバー） =====  -->
 	<div class='fixed-top'>
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -40,38 +58,17 @@
 	</div>
 
     <!-- ===== サイドバー ===== --> 
-    <div class="container-fluid">
-      <div class="row">
-        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-          <div class="sidebar-sticky">
-            <ul class="nav flex-column nav-pills">
-            	<BR>
-              <li class="nav-item">
-                <a class="nav-link active" th:href="@{'/deviceList'}">デバイスリスト</a>
-              </li><br>
-              <li class="nav-item">
-                <a class="nav-link active" th:href="@{'/signup'}">デバイス登録</a>
-              </li><br>
-              <li class="nav-item">
-                <a class="nav-link active" th:href="@{|/userDetail/${#authentication.name}|}">アカウント管理</a>
-              </li><br>
-              <li class="nav-item" role="presentation" sec:authorize="hasRole('ADMIN')">
-                <a class="nav-link active" th:href="@{'/userList'}">ユーザー一覧</a>
-              </li>
-            </ul>
-          </div>
-        </nav>
-			<div class="col-md-9 ml-sm-auto col-lg-10 pt-1 px-4">
-				<div th:include="__${contents}__"></div>
-			</div>
-      </div>
+    <div style="margin-top : 20px" class="container-fluid">
+		<div class="row">
+		<div class="col-2">
+			<div><p>test</p></div>
+		</div>
+		<div class="col-10">
+			<div th:include="__${contents}__"></div>
+		</div>
+		</div>
     </div>
     
-    <!-- ===== コンテンツ ===== -->
-	<div class="container-fluid">
-		<div class="row my-3">
-		</div>
-	</div>
 
 </body>
 </html>

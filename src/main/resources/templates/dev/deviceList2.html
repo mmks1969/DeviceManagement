@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8"></meta>
+</head>
+<body th:scroll="yes">
+    <!-- コンテンツ部分 -->
+    <div th:fragment="deviceList_contents">
+        <div class="mr-5 pt-4">
+        <table id="table1" class="table table-bordered">
+        	<thead class="thead-dark">
+	            <tr>
+	                <th scope="col">ID</th>
+	                <th scope="col">機器区分</th>
+	                <th scope="col">型番</th>
+	                <th scope="col">メーカー名</th>
+	                <th scope="col">所有者</th>
+	                <th scope="col">購入日</th>
+	                <th scope="col"></th>
+	            </tr>
+            </thead>
+            <tbody>
+	            <tr th:each="device : ${deviceList}">
+	                <td class="text-center" th:text="${device.deviceId}"></td>
+	                <td th:text="${device.deviceKbn}"></td>
+	                <td th:text="${device.kataban}"></td>
+	                <td th:text="${device.maker}"></td>
+	                <td th:text="${device.owner}"></td>
+	                <td class="text-center" th:text="${device.purchaseDate}"></td>
+	                <td class="text-center">
+	                    <!-- ユーザー詳細画面へのリンク -->
+	                    <a class="btn btn-primary" th:href="@{'/deviceDetail/' + ${device.deviceId}}">
+				                        詳細
+	                    </a>
+	                </td>
+	            </tr>
+            </tbody>
+        </table>
+        </div>
+        <!-- ユーザー一覧の件数 -->
+        <label th:text=" '合計：' + ${deviceListCount} + '件' "></label><br/>
+        <!-- 更新・削除処理の結果表示用 -->
+        <label class="text-info" th:text="${result}">結果表示</label><br/>
+        <!-- CSV出力用のリンク -->
+        <a class="btn btn-primary" th:href="@{'/deviceList/csv'}">CSV出力</a>
+
+
+<!-- <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.21/datatables.min.js"></script> -->
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.21/fh-3.1.7/datatables.min.js"></script>
+
+<script>
+    $(document).ready(function(){
+        // datatableの設定を変更
+        $("#table1").DataTable({
+        	 fixedHeader: {
+        		 header: true,
+        		 footer: true
+        	 }
+        });
+    });
+</script>
+    </div>
+</body>
+</html>

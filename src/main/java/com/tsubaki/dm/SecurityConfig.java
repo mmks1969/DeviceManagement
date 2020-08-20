@@ -38,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	public void configure(WebSecurity web) throws Exception{
 		// 静的リソースへのアクセスには、セキュリティーを適用しない
-		web.ignoring().antMatchers("/webjars/* *","/css/* *");
+		web.ignoring().antMatchers("/webjars/**","/css/**");
 	}
 	
 	@Override
@@ -77,6 +77,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		// RESTのみCSRF対策を無効に設定
 		http.csrf().requireCsrfProtectionMatcher(csrfMatcher);
+		
+		http
+			.headers()
+			.frameOptions()
+			.sameOrigin();
 	}
 	
 	@Override
