@@ -202,9 +202,13 @@ public class SignupController {
     	String fileNo = "0000";
     	
         for (MultipartFile file : multipartFiles) {
+
+        	int dot = file.getOriginalFilename().lastIndexOf(".");
+            String extString = file.getOriginalFilename().substring(dot).toLowerCase();
+            
         	String deviceId = form.getDeviceId();
         	String filepath = externalProp.get("FILE_PATH");
-            Path uploadfile = Paths.get(filepath + deviceId + "_" +file.getOriginalFilename());
+            Path uploadfile = Paths.get(filepath + deviceId + "_" + fileNo + "_000" + extString);
             try (OutputStream os = Files.newOutputStream(uploadfile, StandardOpenOption.CREATE)) {
               byte[] bytes = file.getBytes();
               os.write(bytes);
@@ -212,9 +216,6 @@ public class SignupController {
               //エラー処理は省略
             }
 
-            int dot = file.getOriginalFilename().lastIndexOf(".");
-            String extString = file.getOriginalFilename().substring(dot).toLowerCase();
-            
         	FileBean fileBean = new FileBean();
             fileBean.setDeviceId(deviceId);
             fileBean.setFileName(deviceId + "_" + fileNo + "_000" + extString);
