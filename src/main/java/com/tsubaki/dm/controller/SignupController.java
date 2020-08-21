@@ -199,13 +199,19 @@ public class SignupController {
      */
     private void saveFiles(DeviceForm form) {
     	List<MultipartFile> multipartFiles = form.getFile();
+    	
+    	// 一つのデバイスに複数のファイルを付けることが出来る。
+    	// ファイル名：deviceId_fileNo_revNo.拡張子
+    	// 例：1020_0000_000.pdf
     	String fileNo = "0000";
     	
         for (MultipartFile file : multipartFiles) {
 
+        	// 拡張子のチェック
         	int dot = file.getOriginalFilename().lastIndexOf(".");
             String extString = file.getOriginalFilename().substring(dot).toLowerCase();
             
+            // 選択されたファイルのアップロード
         	String deviceId = form.getDeviceId();
         	String filepath = externalProp.get("FILE_PATH");
             Path uploadfile = Paths.get(filepath + deviceId + "_" + fileNo + "_000" + extString);
@@ -231,6 +237,7 @@ public class SignupController {
                 System.out.println("file insert失敗");
             }
             
+            // 次ファイルのfileNoをインクリメント
             fileNo = String.format("%04d", Integer.parseInt(fileNo) + 10);
       }
         
