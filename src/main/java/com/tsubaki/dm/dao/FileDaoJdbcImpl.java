@@ -94,12 +94,12 @@ public class FileDaoJdbcImpl implements FileDao {
         return fileList;
     }
 
-    // Userテーブルを１件削除.
+    // m_fileテーブルを１件削除.
     @Override
     public int deleteOne(String fileName) throws DataAccessException {
 
         //１件削除
-        int rowNumber = jdbc.update("DELETE FROM m_device WHERE device_id = ?", fileName);
+        int rowNumber = jdbc.update("DELETE FROM m_file WHERE file_name = ?", fileName);
 
         return rowNumber;
     }

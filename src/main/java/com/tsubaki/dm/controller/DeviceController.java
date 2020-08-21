@@ -316,4 +316,29 @@ public class DeviceController {
         return "dev/dispLayout";
     }
     
+    /**
+     * デバイス削除用処理.
+     */
+    @GetMapping(value = "/fileDelete/{fileName}")
+    public String getFileDelete(@ModelAttribute DeviceForm form, Model model, @PathVariable("fileName") String fileName) {
+
+        //削除実行
+        boolean result = fileService.deleteOne(fileName);
+
+        if (result == true) {
+
+            model.addAttribute("result", "削除成功");
+
+        } else {
+
+            model.addAttribute("result", "削除失敗");
+
+        }
+
+        // デバイス一覧画面を表示
+        return getDeviceList(model);
+    }
+
+
+    
 }

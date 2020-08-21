@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.tsubaki.dm.dao.FileDao;
 import com.tsubaki.dm.model.FileBean;
+import com.tsubaki.dm.util.ExternalPropertiesUtil;
+import com.tsubaki.dm.util.FileUtil;
 
 @Transactional
 @Service
@@ -18,7 +20,13 @@ public class FileService {
     @Qualifier("FileDaoJdbcImpl2")
     FileDao dao;
 
-    /**
+	@Autowired
+	ExternalPropertiesUtil externalProp;
+	
+	@Autowired
+	FileUtil fileUtil;
+
+	/**
      * insert用メソッド.
      */
     public boolean insert(FileBean device) {
@@ -66,7 +74,13 @@ public class FileService {
 
         if (rowNumber > 0) {
             // delete成功
+        	// ファイルの移動
+        	String orgPath = externalProp.get("FILE_PATH");
+        	String destPath = externalProp.get("DEST_FILE_PATH");
+        	fileUtil.moveFile(orgPath, destPath, fileName);
+
             result = true;
+            
         }
         return result;
     }

@@ -84,15 +84,16 @@
 							<td>
 								<a th:text="${files.originalFileName}" th:href="|javascript:zumenDispDo('${files.fileName}')|"></a>
 							</td>
-<!-- 			                <td class="text-center"> -->
-			                    <!-- 添付ファイルの削除のリンク -->
-<!--			                    <p><i class="far fa-trash-alt"></i></p>
-			                </td>
- -->
-			                <td class="text-center">
+ 			                <td class="text-center">
 			                    <!-- 添付ファイルの削除のリンク -->
 			                    <a class="btn btn-primary" th:href="@{'/deviceDetail/' + ${files.fileName}}">
 									差替え
+			                    </a>
+			                </td>
+			                <td class="text-center">
+			                    <!-- 添付ファイルの削除のリンク -->
+			                    <a class="btn btn-danger" th:href="@{'/fileDelete/' + ${files.fileName}}">
+									削除
 			                    </a>
 			                </td>
                     </table>
