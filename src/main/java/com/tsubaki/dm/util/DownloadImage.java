@@ -40,9 +40,11 @@ public class DownloadImage {
     	response.setHeader("Cache-Control", ""); 
     	response.setHeader("Content-Disposition", "inline; filename=10827.pdf");
 
+    	String filepath = externalProp.get("FILE_PATH");
+
 		BufferedInputStream in = null;
 		byte[] buf;
-		in = new BufferedInputStream(new FileInputStream("C:\\filesys\\VaultLoc\\torisetsu\\" + p_key));
+		in = new BufferedInputStream(new FileInputStream(filepath + p_key));
 		buf = new byte[in.available()];
 		in.read(buf);
 		OutputStream out = response.getOutputStream();
