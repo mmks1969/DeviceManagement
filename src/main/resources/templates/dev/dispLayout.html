@@ -60,8 +60,10 @@
     <!-- ===== サイドバー ===== --> 
     <div style="margin-top : 20px" class="container-fluid">
 		<div class="row">
-		<div class="col-2">
-			<div><p>test</p></div>
+		<div class="col-2"  th:object="${fileInfo}">
+			<p class="m-0">デバイスＩＤ</p><P><span th:text="*{deviceId}">test</span></p>
+			<p class="m-0">ファイル名</p><P><span  th:text="*{originalFileName}">test</span></p>
+			<p class="m-0">登録日</p><P><span  th:text="*{creationdate}">test</span></p>
 		</div>
 		<div class="col-10">
 			<div th:include="__${contents}__"></div>

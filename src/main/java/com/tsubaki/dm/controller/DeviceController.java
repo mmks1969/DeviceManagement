@@ -337,6 +337,11 @@ public class DeviceController {
     	// コンテンツ部分にユーザー詳細を表示するための文字列を登録
         model.addAttribute("contents", "com/pdfDisp :: pdf_contents");
         model.addAttribute("p_key", fileName);
+        
+        // ファイル情報の取得
+        FileBean fileBean = fileService.selectOne(fileName);
+        
+        model.addAttribute("fileInfo",fileBean);
 
         // デバイスIDのチェック
         if (fileName != null && fileName.length() > 0) {
@@ -390,6 +395,11 @@ public class DeviceController {
     public String postFileAdd(@ModelAttribute DeviceForm form, Model model, @RequestParam("deviceId") String deviceId) {
     	
     	List<MultipartFile> multipartFiles = form.getFile();
+    	String orgName = multipartFiles.get(0).getOriginalFilename();
+    	if(orgName.equals("")) {
+    		model.addAttribute("message","ファイルを選択して追加ボタンを押下してください");
+    		 return getDeviceDetail(form, model, deviceId);
+    	}
     	
     	// 一つのデバイスに複数のファイルを付けることが出来る。
     	// ファイル名：deviceId_fileNo_revNo.拡張子
