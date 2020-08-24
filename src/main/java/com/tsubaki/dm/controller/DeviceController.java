@@ -349,7 +349,7 @@ public class DeviceController {
         }
 
     	//ユーザー一覧画面を表示
-        return "dev/dispLayout";
+        return "com/dispLayout";
     }
     
     /**
