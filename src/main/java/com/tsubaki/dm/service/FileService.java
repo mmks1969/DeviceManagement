@@ -62,7 +62,9 @@ public class FileService {
     }
     
     /**
-     * １件削除用メソッド.
+     * １件削除用メソッド
+     * @param fileName
+     * @return
      */
     public boolean deleteOne(String fileName) {
 
@@ -83,6 +85,50 @@ public class FileService {
             
         }
         return result;
+    }
+
+    /**
+     * １件追加メソッド
+     * @param fileName
+     * @return
+     */
+    public boolean addOne(String fileName) {
+
+        // １件削除
+        int rowNumber = dao.deleteOne(fileName);
+
+        // 判定用変数
+        boolean result = false;
+
+        if (rowNumber > 0) {
+            // delete成功
+        	// ファイルの移動
+        	String orgPath = externalProp.get("FILE_PATH");
+        	String destPath = externalProp.get("DEST_FILE_PATH");
+        	fileUtil.moveFile(orgPath, destPath, fileName);
+
+            result = true;
+            
+        }
+        return result;
+    }
+
+    
+    public String selectFileNo(String deviceId) {
+    	
+    	String cnt = dao.countFile(deviceId);
+    	System.out.println(cnt);
+    	
+    	String fileNo = null;
+    	
+    	if(!cnt.equals("0")) {
+        	// deviceIdに対するFileNoを取得
+        	fileNo = dao.selectFileNo(deviceId);
+    	} else {
+    		fileNo = "0000";
+    	}
+    	
+    	return fileNo;
     }
 
 }

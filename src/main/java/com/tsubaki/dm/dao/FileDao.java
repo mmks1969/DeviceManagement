@@ -39,5 +39,11 @@ public interface FileDao {
      * @throws DataAccessException
      */
     public int deleteOne(String fileName) throws DataAccessException;
+    
+    public String countFile(String deviceId) throws DataAccessException;
+
+    public String selectFileNo(String deviceId) throws DataAccessException;
+    
+    
 
 }

@@ -13,6 +13,8 @@ import org.springframework.stereotype.Repository;
 
 import com.tsubaki.dm.model.FileBean;
 
+import net.minidev.asm.ConvertDate.StringCmpNS;
+
 @Repository("FileDaoJdbcImpl")
 public class FileDaoJdbcImpl implements FileDao {
 
@@ -30,13 +32,15 @@ public class FileDaoJdbcImpl implements FileDao {
         // １件登録
         int rowNumber = jdbc.update("INSERT INTO m_file(file_name,"
                 + " device_id,"
+                + " file_no,"
                 + " original_file_name,"
                 + " path1,"
                 + " path2,"
                 + " creationdate)"
-                + " VALUES(?, ?, ?, ?, ?, ?)",
+                + " VALUES(?, ?, ?, ?, ?, ?, ?)",
                 fileBean.getFileName(),
                 fileBean.getDeviceId(),
+                fileBean.getFileName().substring(5, 9),
                 fileBean.getOriginalFileName(),
                 "VaultLoc",
                 "torisetsu",
@@ -104,4 +108,16 @@ public class FileDaoJdbcImpl implements FileDao {
         return rowNumber;
     }
 
+    @Override
+    public String selectFileNo(String deviceId) throws DataAccessException {
+    	String aaa = null;
+    	return aaa;
+    	
+    }
+    
+    @Override
+    public String countFile(String deviceId) throws DataAccessException{
+    	String cnt = null;
+    	return cnt;
+    }
 }

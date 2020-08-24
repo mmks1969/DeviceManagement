@@ -1,6 +1,7 @@
 package com.tsubaki.dm.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -42,5 +43,31 @@ public class FileDaoJdbcImpl2 extends FileDaoJdbcImpl {
         //SQL実行
         return jdbc.query(sql, rowMapper, deviceId);
     }
+
+    // デバイスに添付されたファイルの個数を取得する
+    @Override
+    public String countFile(String deviceId) {
+    	// SQL
+    	String sql = "SELECT count(file_no) as cnt FROM pcm.m_file where device_id = ?";
+    	
+    	List<Map<String, Object>> list =jdbc.queryForList(sql, deviceId); 
+    	String cnt = list.get(0).get("cnt").toString();
+    	
+    	return cnt;
+    	
+    }
+
+    // デバイスに添付されたファイルの最大FileNoを取得する
+    public String selectFileNo(String deviceId) {
+    	// SQL
+    	String sql = "SELECT max(file_no) as maxno FROM pcm.m_file where device_id = ?";
+    	
+    	List<Map<String, Object>> list =jdbc.queryForList(sql, deviceId); 
+    	String fileNo = list.get(0).get("maxno").toString();
+    	
+    	return fileNo;
+    	
+    }
+
 
 }

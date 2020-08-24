@@ -1,6 +1,11 @@
 package com.tsubaki.dm.controller;
 
 import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -22,6 +27,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.tsubaki.dm.model.DeviceBean;
 import com.tsubaki.dm.model.DeviceForm;
@@ -30,6 +36,7 @@ import com.tsubaki.dm.service.DeviceService;
 import com.tsubaki.dm.service.FileService;
 import com.tsubaki.dm.service.VvsService;
 import com.tsubaki.dm.util.DownloadImage;
+import com.tsubaki.dm.util.ExternalPropertiesUtil;
 
 @Controller
 public class DeviceController {
@@ -45,6 +52,9 @@ public class DeviceController {
     
 	@Autowired
 	DownloadImage downloadImage;
+
+	@Autowired
+	ExternalPropertiesUtil externalProp;
 
 	// ラジオボタン（デバイス区分:deviceKbn）の変数
     private Map<String, String> radioDeviceKbn;
@@ -76,7 +86,9 @@ public class DeviceController {
     }
     
     /**
-     * デバイス一覧画面のGETメソッド用処理.
+     * デバイス一覧画面のGETメソッド用処理
+     * @param model
+     * @return
      */
     @GetMapping("/deviceList")
     public String getDeviceList(Model model) {
@@ -184,7 +196,10 @@ public class DeviceController {
     }
 
     /**
-     * デバイス情報更新処理.
+     * デバイス情報更新処理
+     * @param form
+     * @param model
+     * @return
      */
     @PostMapping(value = "/deviceUpdate", params = "update")
     public String postDeviceUpdate(@ModelAttribute DeviceForm form, Model model) {
@@ -224,11 +239,15 @@ public class DeviceController {
         }
 
         //デバイス一覧画面を表示
-        return getDeviceList(model);
+//        return getDeviceList(model);
+        return getDeviceDetail(form, model, form.getDeviceId());
     }
 
     /**
-     * デバイス削除用処理.
+     * デバイス削除用処理
+     * @param form
+     * @param model
+     * @return
      */
     @PostMapping(value = "/deviceUpdate", params = "delete")
     public String postUserDetailDelete(@ModelAttribute DeviceForm form,
@@ -255,6 +274,9 @@ public class DeviceController {
 
     /**
      * デバイス更新キャンセル処理
+     * @param form
+     * @param model
+     * @return
      */
     @PostMapping(value = "/deviceUpdate", params = "cancel")
     public String postDeviceUpdateCancel(@ModelAttribute DeviceForm form,
@@ -265,7 +287,9 @@ public class DeviceController {
     }
     
     /**
-     * デバイス一覧のCSV出力用処理.
+     * デバイス一覧のCSV出力用処理
+     * @param model
+     * @return
      */
     @GetMapping("/deviceList/csv")
     public ResponseEntity<byte[]> getUserListCsv(Model model) {
@@ -292,9 +316,16 @@ public class DeviceController {
         // DeviceList.csvを戻す
         return new ResponseEntity<>(bytes, header, HttpStatus.OK);
     }
-    
+
     /**
      * PDF表示処理
+     * @param form
+     * @param model
+     * @param httpSession
+     * @param request
+     * @param response
+     * @param fileName
+     * @return
      */
     @PostMapping(value = "/pdfDisp")
     public String postPdfDisp(@ModelAttribute DeviceForm form
@@ -317,11 +348,18 @@ public class DeviceController {
     }
     
     /**
-     * デバイス削除用処理.
+     * ファイル削除処理
+     * ファイル名をキーに登録済みのファイルを削除する
+     * @param form
+     * @param model
+     * @param fileName
+     * @return
      */
     @GetMapping(value = "/fileDelete/{fileName}")
     public String getFileDelete(@ModelAttribute DeviceForm form, Model model, @PathVariable("fileName") String fileName) {
 
+    	String deviceId = fileName.substring(0, 4);
+    	
         //削除実行
         boolean result = fileService.deleteOne(fileName);
 
@@ -336,9 +374,70 @@ public class DeviceController {
         }
 
         // デバイス一覧画面を表示
-        return getDeviceList(model);
+//        return getDeviceList(model);
+        return getDeviceDetail(form, model, deviceId);
     }
 
-
     
+    /**
+     * ファイル追加
+     * @param form
+     * @param model
+     * @param fileName
+     * @return
+     */
+    @PostMapping(value = "/fileAdd")
+    public String postFileAdd(@ModelAttribute DeviceForm form, Model model, @RequestParam("deviceId") String deviceId) {
+    	
+    	List<MultipartFile> multipartFiles = form.getFile();
+    	
+    	// 一つのデバイスに複数のファイルを付けることが出来る。
+    	// ファイル名：deviceId_fileNo_revNo.拡張子
+    	// 例：1020_0000_000.pdf
+    	String fileNo = fileService.selectFileNo(deviceId);
+        // fileNoをインクリメント
+        fileNo = String.format("%04d", Integer.parseInt(fileNo) + 10);
+
+        for (MultipartFile file : multipartFiles) {
+
+        	// 拡張子のチェック
+        	int dot = file.getOriginalFilename().lastIndexOf(".");
+            String extString = file.getOriginalFilename().substring(dot).toLowerCase();
+            
+            // 選択されたファイルのアップロード
+//        	String deviceId = form.getDeviceId();
+        	String filepath = externalProp.get("FILE_PATH");
+            Path uploadfile = Paths.get(filepath + deviceId + "_" + fileNo + "_000" + extString);
+            try (OutputStream os = Files.newOutputStream(uploadfile, StandardOpenOption.CREATE)) {
+              byte[] bytes = file.getBytes();
+              os.write(bytes);
+            } catch (IOException e) {
+              //エラー処理は省略
+            }
+
+        	FileBean fileBean = new FileBean();
+            fileBean.setDeviceId(deviceId);
+            fileBean.setFileName(deviceId + "_" + fileNo + "_000" + extString);
+            fileBean.setOriginalFileName(file.getOriginalFilename());
+
+            // デバイス登録処理
+            boolean result = fileService.insert(fileBean);
+            
+            // デバイス登録結果の判定
+            if (result == true) {
+                System.out.println("file insert成功");
+            } else {
+                System.out.println("file insert失敗");
+            }
+            
+            // 次ファイルのfileNoをインクリメント
+            fileNo = String.format("%04d", Integer.parseInt(fileNo) + 10);
+      }
+        
+
+        // デバイス一覧画面を表示
+//        return getDeviceList(model);
+        return getDeviceDetail(form, model, deviceId);
+    }
+
 }

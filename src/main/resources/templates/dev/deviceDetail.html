@@ -26,10 +26,16 @@
         <div class="page-header my-3">
             <h1>詳細情報</h1>
         </div>
-        <div class="row">
+        <div class="row" th:object="${deviceForm}">
             <div class="col-sm-6">
-                <form method="get" th:action="@{/deviceUpdate} + '/' +  ${deviceForm.deviceId} " th:object="${deviceForm}">
-                    <table class="table table-bordered table-hover table-responsive-sm" th:object="${deviceForm}">
+                <form method="get" th:action="@{/deviceUpdate} + '/' +  ${deviceForm.deviceId} ">
+                    <!-- 更新ボタン -->
+                    <div>
+	                    <button class="btn btn-primary btn-block" type="submit" name="deviceUpdate">
+							詳細情報更新
+	                    </button>
+                    </div>
+                    <table class="table table-bordered table-hover table-responsive-sm">
                         <!-- デバイスID -->
                         <tr>
                             <th scope="col">デバイスID</th>
@@ -71,38 +77,38 @@
                             <td th:text="*{lastupdate}"></td>
                         </tr>
                     </table>
-                    <!-- 更新ボタン -->
-                    <button class="btn btn-primary btn-lg" type="submit" name="deviceUpdate">
-						変更
-                    </button><br><br>
                 </form>
-						添付ファイル
+                <br>
+                
+				添付ファイル
 				<form  name="PdfListForm" method="post">
-                    <table class="table table-bordered table-hover" >
-                        <!-- 添付ファイル -->
-                        <tr th:each="files : ${fileBeanList}">
+	                <table class="table table-bordered table-hover" >
+	                    <!-- 添付ファイル -->
+	                    <tr th:each="files : ${fileBeanList}">
 							<td>
 								<a th:text="${files.originalFileName}" th:href="|javascript:zumenDispDo('${files.fileName}')|"></a>
 							</td>
- 			                <td class="text-center">
-			                    <!-- 添付ファイルの削除のリンク -->
-			                    <a class="btn btn-primary" th:href="@{'/deviceDetail/' + ${files.fileName}}">
-									差替え
-			                    </a>
-			                </td>
-			                <td class="text-center">
-			                    <!-- 添付ファイルの削除のリンク -->
-			                    <a class="btn btn-danger" th:href="@{'/fileDelete/' + ${files.fileName}}">
-									削除
-			                    </a>
-			                </td>
-                    </table>
+							<td class="text-center">
+								<!-- 添付ファイルの削除のリンク -->
+			                   <a class="btn btn-danger" th:href="@{'/fileDelete/' + ${files.fileName}}">削除</a>
+			               </td>
+						</tr>
+	                </table>
                     <!-- CSRF対策用トークン -->
                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-					<!-- 図面表示用 -->
+					<!-- ｐｄｆ表示用 -->
 					<input type="hidden" th:name="key" value=""/>
+					<input type="hidden" th:name="deviceId" th:value="*{deviceId}"/>
+                </form>
+                
+	            <!-- 添付ファイルの追加ボタン -->
+				<form name="fileAddForm" method="post" enctype="multipart/form-data" th:action="@{/fileAdd}">
+               		<input type="file" name="file" multiple/>
+					<button class="btn btn-primary btn-sm" type="submit" name="addFile">追加</button>
+					<!-- 登録用 -->
+					<input type="hidden" th:name="deviceId" th:value="*{deviceId}"/>
 				</form>
-            </div>
+		     </div>
         </div>
     </div>
 </body>
