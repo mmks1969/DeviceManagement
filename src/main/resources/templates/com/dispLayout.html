@@ -40,37 +40,40 @@
 <body onload="JavaScript:funcStart();">
     <!-- ===== ヘッダー（ナビゲーションバー） =====  -->
 	<div class='fixed-top'>
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<a class="navbar-brand" href="#"><img src="../images/tsubaki-logo.png" alt="WEBST8ロゴ"></a>
-			<div>	ユーザー名：<span sec:authentication="principal.appUserName"></span></div>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<a class="navbar-brand" href="#"><img src="../images/tsubaki-logo-blue-200x42.png" alt="WEBST8ロゴ"></a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navmenu1" aria-controls="navmenu1" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
-		
-		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-		    <ul class="navbar-nav mr-auto">
-		    </ul>
-	        <form class="form-inline my-2 my-lg-0" method="post" th:action="@{/logout}">
-	            <button class="btn btn-success my-2 my-sm-0" type="submit">ログアウト</button>
-	        </form>
-		  </div>
+			<div class="collapse navbar-collapse" id="navmenu1">
+				<ul class="navbar-nav mr-auto">
+				</ul>
+				<ul class="navbar-nav">
+					<li class="nav-item">
+						<a class="nav-link active">ユーザー名：<span sec:authentication="principal.appUserName"></span></a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{'/logout'}">　LOGOUT　</a>
+					</li>
+				</ul>
+			</div>
 		</nav>
 	</div>
 
-    <!-- ===== サイドバー ===== --> 
-    <div style="margin-top : 20px" class="container-fluid">
+    <!-- ===== コンテンツ ===== --> 
+	<div style="margin-top : 20px" class="container-fluid">
 		<div class="row">
-		<div class="col-2"  th:object="${fileInfo}">
-			<p class="m-0 bg-primary text-light text-center">デバイスＩＤ</p><P><span th:text="*{deviceId}">test</span></p>
-			<p class="m-0 bg-primary text-light text-center">ファイル名</p><P><span  th:text="*{originalFileName}">test</span></p>
-			<p class="m-0 bg-primary text-light text-center">登録日</p><P><span  th:text="*{creationdate}">test</span></p>
+			<!-- pdf情報表示 -->
+			<div class="col-2"  th:object="${fileInfo}">
+				<p class="m-0 bg-primary text-light text-center">デバイスＩＤ</p><P><span th:text="*{deviceId}">test</span></p>
+				<p class="m-0 bg-primary text-light text-center">ファイル名</p><P><span  th:text="*{originalFileName}">test</span></p>
+				<p class="m-0 bg-primary text-light text-center">登録日</p><P><span  th:text="*{creationdate}">test</span></p>
+			</div>
+			<!-- pdf表示 -->
+			<div class="col-10">
+				<div th:include="__${contents}__"></div>
+			</div>
 		</div>
-		<div class="col-10">
-			<div th:include="__${contents}__"></div>
-		</div>
-		</div>
-    </div>
-    
-
+	</div>
 </body>
 </html>
