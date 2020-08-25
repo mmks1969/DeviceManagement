@@ -22,19 +22,65 @@
 <body>
     <!-- ===== ヘッダー（ナビゲーションバー） =====  -->
 	<div class='fixed-top'>
+<!-- 
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<a class="navbar-brand" href="#"><img src="../images/tsubaki-logo.png" alt="WEBST8ロゴ"></a>
+			<a class="navbar-brand" href="#"><img src="../images/tsubaki-logo-blue-200x42.png" alt="WEBST8ロゴ"></a>
 			<div>	ユーザー名：<span sec:authentication="principal.appUserName"></span></div>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navmenu1" aria-controls="navmenu1" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
-		
-		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<div class="collapse navbar-collapse" id="navmenu1">
+				<ul class="navbar-nav mx-auto">
+					<li class="nav-item">
+						<a class="active" th:href="@{'/deviceList'}">　デバイスリスト　</a>
+					</li>
+					<li class="nav-item">
+						<a class="active" th:href="@{'/signup'}">　デバイス登録　</a>
+					</li>
+					<li class="nav-item">
+						<a class="active" th:href="@{|/userDetail/${#authentication.name}|}">　アカウント管理　</a>
+					</li>
+					<li class="nav-item">
+						<a class="active" sec:authorize="hasRole('ADMIN')" th:href="@{'/userList'}">　ユーザー一覧　</a>
+					</li>
+					<li>
+					     <form class="form-inline my-2 my-lg-0" method="post" th:action="@{/logout}">
+					         <button class="btn btn-success my-2 my-sm-0 btn-sm" type="submit">ログアウト</button>
+					     </form><br><br>
+					</li>
+				</ul>
+			</div>
+		</nav>
+ -->
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<a class="navbar-brand" href="#"><img src="../images/tsubaki-logo-blue-200x42.png" alt="WEBST8ロゴ"></a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navmenu1" aria-controls="navmenu1" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+		  <div class="collapse navbar-collapse" id="navmenu1">
 		    <ul class="navbar-nav mr-auto">
+		    	<li class="nav-item dropdown">
+		    		<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">デバイス</a>
+		    		<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" th:href="@{'/deviceList'}">　デバイスリスト　</a>
+						<a class="dropdown-item" th:href="@{'/signup'}">　デバイス登録　</a>
+					</div>
+		    	</li>
+				<li class="nav-item">
+					<a class="nav-link" th:href="@{|/userDetail/${#authentication.name}|}">　アカウント管理　</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" sec:authorize="hasRole('ADMIN')" th:href="@{'/userList'}">　ユーザー一覧　</a>
+				</li>
 		    </ul>
-	        <form class="form-inline my-2 my-lg-0" method="post" th:action="@{/logout}">
-	            <button class="btn btn-success my-2 my-sm-0" type="submit">ログアウト</button>
-	        </form>
+		    <ul class="navbar-nav">
+		    	<li class="nav-item">
+					<a class="nav-link active">ユーザー名：<span sec:authentication="principal.appUserName"></span></a>
+		    	</li>
+				<li class="nav-item">
+					<a class="nav-link" th:href="@{'/logout'}">　LOGOUT　</a>
+				</li>
+		    </ul>
 		  </div>
 		</nav>
 	</div>
@@ -42,6 +88,7 @@
     <!-- ===== サイドバー ===== --> 
     <div class="container-fluid">
       <div class="row">
+    <!-- 
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
           <div class="sidebar-sticky">
             <ul class="nav flex-column nav-pills">
@@ -61,7 +108,8 @@
             </ul>
           </div>
         </nav>
-			<div class="col-md-9 ml-sm-auto col-lg-10 pt-1 px-4">
+     -->
+			<div class="col-md-12 ml-sm-auto col-lg-12 pt-1 px-4">
 				<div th:include="__${contents}__"></div>
 			</div>
       </div>

@@ -181,6 +181,16 @@ public class HomeController {
         return "redirect:/login";
     }
     
+    /**
+     * ログアウト用処理.
+     */
+    @GetMapping("/logout")
+    public String getLogout() {
+    	
+    	//ログイン画面にリダイレクト
+    	return "redirect:/login";
+    }
+    
     // ユーザー一覧のCSV出力用メソッド
     @GetMapping("/userList/csv")
     public ResponseEntity<byte[]> getUserListCsv(Model model) {
