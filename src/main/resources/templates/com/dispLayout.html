@@ -64,13 +64,13 @@
 	<div style="margin-top : 20px" class="container-fluid">
 		<div class="row">
 			<!-- pdf情報表示 -->
-			<div class="col-2"  th:object="${fileInfo}">
+			<div class="col-xs-12 col-md-3"  th:object="${fileInfo}">
 				<p class="m-0 bg-primary text-light text-center">デバイスＩＤ</p><P><span th:text="*{deviceId}">test</span></p>
 				<p class="m-0 bg-primary text-light text-center">ファイル名</p><P><span  th:text="*{originalFileName}">test</span></p>
 				<p class="m-0 bg-primary text-light text-center">登録日</p><P><span  th:text="*{creationdate}">test</span></p>
 			</div>
 			<!-- pdf表示 -->
-			<div class="col-10">
+			<div class="col-xs-12 col-md-9">
 				<div th:include="__${contents}__"></div>
 			</div>
 		</div>
