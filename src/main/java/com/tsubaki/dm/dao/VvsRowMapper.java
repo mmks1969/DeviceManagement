@@ -16,6 +16,8 @@ public class VvsRowMapper implements RowMapper<Vvs> {
     	Vvs vvs = new Vvs();
 
             // Userインスタンスに取得したデータをセットする
+    		vvs.setUsedAttribute(rs.getString("used_attribute"));
+    		vvs.setSortKey(rs.getString("sort_key"));
             vvs.setKey(rs.getString("key"));
             vvs.setValue(rs.getString("value"));
 
