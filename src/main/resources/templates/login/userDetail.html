@@ -8,12 +8,12 @@
 <body>
     <!-- コンテンツ部分 -->
     <div th:fragment="userDetail_contents">
-           <div class="col-sm-5 mr-5 pt-4">
+           <div class="col-lg-6 mr-5 pt-4">
                <form method="post" th:action="@{/userDetail}" th:object="${userSignupForm}">
-                   <table class="table table-striped table-bordered">
+                   <table class="table table-bordered table-hover">
                        <!-- ユーザーID（入力不可） -->
                        <tr>
-                           <th scope="col">ユーザーID</th>
+                           <th scope="col" class="active text-right" >ユーザーID</th>
                            <td scope="col">
                            	<div class="form-group">
                            		<input type="text" class= "form-control" th:field="*{userId}" readonry= "readonly"/>
@@ -22,7 +22,7 @@
                        </tr>
                        <!-- パスワード -->
                        <tr>
-                           <th scope="col">パスワード</th>
+                           <th scope="col" class="active text-right">パスワード</th>
                            <td>
                            	<div class="form-group" th:classappend="${#fields.hasErrors('password')}?'has-error'">
                            		<input type="text" class="form-control" th:field="*{password}"/>
@@ -34,7 +34,7 @@
                        </tr>
                        <!-- ユーザー名 -->
                        <tr>
-                           <th scope="col">ユーザー名</th>
+                           <th scope="col" class="active text-right">ユーザー名</th>
                            <td>
                            	<div class="form-group" th:classappend="${#fields.hasErrors('userName')}?'has-error'">
                            		<input type="text" class="form-control" th:field="*{userName}"/>
@@ -46,7 +46,7 @@
                        </tr>
                        <!-- 誕生日 -->
                        <tr>
-                           <th scope="col">誕生日</th>
+                           <th scope="col" class="active text-right">誕生日</th>
                            <td scope="col">
                            	<div class="form-group" th:classappend="${#fields.hasErrors('birthday')}?'has-error'">
                            		<input type="text" class="form-control" placeholder="yyyy/MM/dd" th:field="*{birthday}"/>
@@ -58,7 +58,7 @@
                        </tr>
                        <!-- メーカー -->
                        <tr>
-                           <th scope="col">年齢</th>
+                           <th scope="col" class="active text-right">年齢</th>
                            <td>
                            	<div class="form-group" th:classappend="${#fields.hasErrors('age')}?'has-error'">
                            		<input type="text" class="form-control" th:field="*{age}"/>
@@ -70,7 +70,7 @@
                        </tr>
                        <!-- 結婚 -->
                        <tr>
-                           <th scope="col">結婚</th>
+                           <th scope="col" class="active text-right">結婚</th>
                            <td>
                            	<div>
                             	<div th:each="item : ${radioMarriage}">

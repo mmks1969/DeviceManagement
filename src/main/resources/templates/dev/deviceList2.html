@@ -46,20 +46,19 @@
         <a class="btn btn-primary" th:href="@{'/deviceList/csv'}">CSV出力</a>
 
 
-<!-- <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.21/datatables.min.js"></script> -->
-<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.21/fh-3.1.7/datatables.min.js"></script>
-
-<script>
-    $(document).ready(function(){
-        // datatableの設定を変更
-        $("#table1").DataTable({
-        	 fixedHeader: {
-        		 header: true,
-        		 footer: true
-        	 }
-        });
-    });
-</script>
+		<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.21/fh-3.1.7/datatables.min.js"></script>
+		
+		<script>
+		    $(document).ready(function(){
+		        // datatableの設定を変更
+		        $("#table1").DataTable({
+		        	 fixedHeader: {
+		        		 header: true,
+		        		 footer: true
+		        	 }
+		        });
+		    });
+		</script>
     </div>
 </body>
 </html>
