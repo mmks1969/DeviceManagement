@@ -47,8 +47,8 @@
 			    	<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" sec:authorize="hasRole('ADMIN')" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">マスタ管理</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" th:href="@{'/makerList'}">メーカー</a>
-							<a class="dropdown-item" th:href="@{'/deviceKbnList'}">デバイス区分</a>
+							<a class="dropdown-item" th:href="@{'/vvsList?kbn=maker'}">メーカー</a>
+							<a class="dropdown-item" th:href="@{'/vvsList?kbn=deviceKbn'}">デバイス区分</a>
 						</div>
 			    	</li>
 				</ul>

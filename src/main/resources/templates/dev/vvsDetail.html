@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8"></meta>
+    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+
+    <!-- Bootstrapの設定 -->
+    <link th:href="@{/webjars/bootstrap/4.2.1/css/bootstrap.min.css}" rel="stylesheet"></link>
+    <script th:src="@{/webjars/jquery/3.3.1-1/jquery.min.js}"></script>
+	<script th:src="@{/webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
+
+</head>
+<body>
+    <div th:fragment="vvsDetail_contents">
+
+        <div class="page-header my-3">
+            <h1>詳細情報</h1>
+        </div>
+        <div class="row" th:object="${vvsForm}">
+            <div class="col-sm-6">
+                <form method="get" th:action="@{/vvsUpdate} + '/' +  ${vvsForm.vvsId} ">
+                    <!-- 更新ボタン -->
+                    <div>
+	                    <button class="btn btn-primary btn-block" type="submit" name="vvsUpdate">
+							詳細情報更新
+	                    </button>
+                    </div>
+                    <table class="table table-bordered table-hover table-responsive-sm">
+                        <!-- vvsID -->
+                        <tr>
+                            <th scope="col">ID</th>
+                            <td scope="col" th:text="*{vvsId}"></td>
+                        </tr>
+                        <!-- 並び順 -->
+                        <tr>
+                            <th scope="col">並び順</th>
+                            <td th:text="*{sortKey}"></td>
+                        </tr>
+                        <!-- キー -->
+                        <tr>
+                            <th scope="col">キー</th>
+                            <td th:text="*{key}"></td>
+                        </tr>
+                        <!-- 値 -->
+                        <tr>
+                            <th scope="col">値</th>
+                            <td th:text="*{value}"></td>
+                        </tr>
+                    </table>
+                </form>
+		     </div>
+        </div>
+    </div>
+</body>
+</html>
