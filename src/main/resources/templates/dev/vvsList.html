@@ -36,6 +36,8 @@
         <label th:text=" '合計：' + ${kbnListCount} + '件' "></label><br/>
         <!-- 更新・削除処理の結果表示用 -->
         <label class="text-info" th:text="${result}">結果表示</label><br/>
+        <!-- 新規登録 -->
+        <a class="btn btn-primary" th:href="@{'/insVvs?kbn='}+${kbn}">新規登録</a>
     </div>
 </body>
 </html>

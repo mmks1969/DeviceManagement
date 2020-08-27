@@ -8,7 +8,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import com.tsubaki.dm.model.DeviceBean;
 import com.tsubaki.dm.model.VvsBean;
 
 @Repository("VvsDaoJdbcImpl")
@@ -67,16 +66,38 @@ public class VvsDaoJdbcImpl implements VvsDao {
     	
     }
     
-    // m_deviceテーブルを１件更新.
+    // m_vvsテーブルのレコードを１件更新.
     @Override
-    public int updateOne(VvsBean vvsVean) throws DataAccessException {
+    public int updateOne(VvsBean vvsBean) throws DataAccessException {
 
     	// 更新用SQL
     	String sql ="UPDATE m_vvs SET sort_key = ?, key_str = ?, value_str = ? where vvs_id = ?";
         //１件更新
-        int rowNumber = jdbc.update(sql,vvsVean.getSortKey(), vvsVean.getKey(), vvsVean.getValue(), vvsVean.getVvsId());
+        int rowNumber = jdbc.update(sql,vvsBean.getSortKey(), vvsBean.getKey(), vvsBean.getValue(), vvsBean.getVvsId());
 
         return rowNumber;
+    }
+
+    // m_vvsのレコードを１件登録.
+    @Override
+    public int insertOne(VvsBean vvsBean) throws DataAccessException {
+    	
+    	// 登録用SQL
+    	String sql ="INSERT INTO m_vvs(vvs_id, used_attribute, sort_key, key_str, value_str)"
+    			+ " VALUES (?, ?, ?, ?, ?)";
+    	// １件登録
+    	int rowNumber = jdbc.update(sql, vvsBean.getVvsId(), vvsBean.getUsedAttribute(), vvsBean.getSortKey(), vvsBean.getKey(), vvsBean.getValue());
+    	
+    	return rowNumber;
+    }
+    
+    // デバイスIDの最大値を取得
+    @Override
+    public int getMaxNo(){
+    	int nextId = 0;
+    	int vvsId = jdbc.queryForObject("SELECT MAX(vvs_id) FROM m_vvs", Integer.class);
+    	nextId = vvsId + 1;
+    	return nextId;
     }
 
 }

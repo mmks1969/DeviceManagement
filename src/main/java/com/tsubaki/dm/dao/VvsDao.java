@@ -23,4 +23,10 @@ public interface VvsDao {
     // レコードを1件更新.
     public int updateOne(VvsBean vvsBean) throws DataAccessException;
     
+    // レコードを1件登録.
+    public int insertOne(VvsBean vvsBean) throws DataAccessException;
+    
+    // vvsIdの最大値を取得
+    public int getMaxNo() throws DataAccessException;
+    
 }

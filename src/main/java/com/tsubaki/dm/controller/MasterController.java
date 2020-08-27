@@ -1,12 +1,6 @@
 package com.tsubaki.dm.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -17,17 +11,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.tsubaki.dm.model.DeviceBean;
 import com.tsubaki.dm.model.DeviceForm;
-import com.tsubaki.dm.model.FileBean;
 import com.tsubaki.dm.model.VvsBean;
 import com.tsubaki.dm.model.VvsForm;
 import com.tsubaki.dm.service.VvsService;
-import com.tsubaki.dm.util.DownloadImage;
 
 @Secured("IS_AUTHENTICATED_FULLY")
 @Controller
@@ -35,6 +24,9 @@ public class MasterController {
 	
 	@Autowired
 	VvsService vvsService;
+	
+    // 初期ID
+    private int initId;
 
     @GetMapping("/vvsList")
     public String getVvsList(Model model, @RequestParam("kbn") String usedAttibute) {
@@ -53,6 +45,7 @@ public class MasterController {
     	// データ件数を取得し、Modelにデータ件数を登録
     	int count = vvsService.count(usedAttibute);
     	model.addAttribute("kbnListCount", count);
+    	model.addAttribute("kbn",usedAttibute);
     	
     	return "dev/homeLayout";
     	
@@ -97,6 +90,7 @@ public class MasterController {
 
         // vvsクラスをフォームクラスに変換
         form.setVvsId(vvs.getVvsId());
+        form.setUsedAttribute(vvs.getUsedAttribute());
         form.setSortKey(vvs.getSortKey());
         form.setKey(vvs.getKey()); 
         form.setValue(vvs.getValue());
@@ -108,7 +102,7 @@ public class MasterController {
     }
 
     /**
-     * デバイス情報更新処理
+     * vvs更新処理
      * @param form
      * @param model
      * @return
@@ -145,4 +139,31 @@ public class MasterController {
         return getVvsDetail(form, model, form.getVvsId());
     }
 
+    /**
+     * vvs登録画面のGETメソッド用処理.
+     */
+    @GetMapping("/insVvs")
+    public String getSignUp(@ModelAttribute VvsForm form, Model model, @RequestParam("kbn") String usedAttibute) {
+
+        // コンテンツ部分にデバイス一覧を表示するための文字列を登録
+        model.addAttribute("contents", "dev/insVvs :: insVvs_contents");
+
+        // IDの初期化
+        initId = initVvsId();
+        
+        // 初期IDをModelに登録
+        form.setVvsId(initId);
+        form.setUsedAttribute(usedAttibute);
+        model.addAttribute("vvsForm", form);
+
+        return "dev/homeLayout";
+    }
+
+    /**
+     * deviceIdの初期化メソッド.
+     */
+    private int initVvsId() {
+    	return vvsService.getMaxNo();
+    }
+    
 }
