@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"></meta>
+
+    <!-- Bootstrapの設定 -->
+    <link th:href="@{/webjars/bootstrap/4.2.1/css/bootstrap.min.css}" rel="stylesheet"></link>
+    <script th:src="@{/webjars/jquery/3.3.1-1/jquery.min.js}"></script>
+	<script th:src="@{/webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
+
+    <title>SignUp</title>
+</head>
+<body>
+    <div th:fragment="insVvs_contents">
+
+    <div class="col-sm-12">
+        <div class="page-header my-3">
+            <h1>新規登録</h1>
+        </div>
+        <form method="post" th:action="@{/insVvs}" th:object="${vvsForm}">
+            <table class="table table-bordered table-hover">
+                <!-- ユーザーIDの入力エリア -->
+                <tr>
+                    <th scope="col"class="active text-right ">ID</th>
+                    <td>
+                        <div class="form-group"
+                            th:classappend="${#fields.hasErrors('vvsId')} ? 'has-error'">
+                            <input type="text" class="form-control" 
+                                th:field="*{vvsId}" readonly="readonly"/>
+                            <span class="text-danger"
+                                th:if="${#fields.hasErrors('vvsId')}"
+                                th:errors="*{vvsId}">
+                                deviceId error
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+                <!-- データ区分の入力エリア -->
+                <tr>
+                    <th scope="col"class="active text-right ">データ区分</th>
+                    <td>
+                        <div class="form-group"
+                            th:classappend="${#fields.hasErrors('usedAttribute')} ? 'has-error'">
+                            <input type="text" class="form-control" 
+                                th:field="*{usedAttribute}" readonly="readonly"/>
+                            <span class="text-danger"
+                                th:if="${#fields.hasErrors('usedAttribute')}"
+                                th:errors="*{usedAttribute}">
+                                usedAttribute error
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+                <!-- 並び順の入力エリア -->
+                <tr>
+                    <th class="active text-right">並び順</th>
+                    <td>
+                        <div class="form-group"
+                            th:classappend="${#fields.hasErrors('sortKey')} ? 'has-error'">
+                            <input type="text" class="form-control"
+                                th:field="*{sortKey}" />
+                            <span class="text-danger"
+                                th:if="${#fields.hasErrors('sortKey')}"
+                                th:errors="*{sortKey}">
+                                sortKey error
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+                <!-- キーの入力エリア -->
+                <tr>
+                    <th class="active text-right">キー</th>
+                    <td>
+                        <div class="form-group"
+                            th:classappend="${#fields.hasErrors('key')} ? 'has-error'">
+                            <input type="text" class="form-control"
+                                th:field="*{key}" />
+                            <span class="text-danger"
+                                th:if="${#fields.hasErrors('key')}"
+                                th:errors="*{key}">
+                                key error
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+                <!--値の入力エリア -->
+                <tr>
+                    <th class="active text-right">値</th>
+                    <td>
+                        <div class="form-group"
+                            th:classappend="${#fields.hasErrors('value')} ? 'has-error'">
+                            <input type="text" class="form-control"
+                                th:field="*{value}" />
+                            <span class="text-danger"
+                                th:if="${#fields.hasErrors('key')}"
+                                th:errors="*{key}">
+                                key error
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <!-- ユーザー登録ボタン -->
+            <button class="btn btn-primary" type="submit" name="signup">
+            	登録
+            </button>
+        </form>
+    </div>
+    </div>
+</body>
+</html>
