@@ -106,7 +106,7 @@ public class DeviceController {
         int count = deviceService.count();
         model.addAttribute("deviceListCount", count);
 
-        return "dev/homeLayout";
+        return "com/homeLayout";
     }
 
     /**
@@ -146,7 +146,7 @@ public class DeviceController {
 
         }
 
-        return "dev/homeLayout";
+        return "com/homeLayout";
     }
     
     /**
@@ -192,7 +192,7 @@ public class DeviceController {
             model.addAttribute("deviceForm", form);
         }
 
-        return "dev/homeLayout";
+        return "com/homeLayout";
     }
 
     /**
@@ -204,7 +204,6 @@ public class DeviceController {
     @PostMapping(value = "/deviceUpdate", params = "update")
     public String postDeviceUpdate(@ModelAttribute DeviceForm form, Model model) {
 
-        System.out.println("更新ボタンの処理");
         // 現在時刻の取得
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd-HH:mm:ss");
@@ -253,8 +252,6 @@ public class DeviceController {
     public String postUserDetailDelete(@ModelAttribute DeviceForm form,
             Model model) {
 
-        System.out.println("削除ボタンの処理");
-
         //削除実行
         boolean result = deviceService.deleteOne(form.getDeviceId());
 
@@ -279,8 +276,7 @@ public class DeviceController {
      * @return
      */
     @PostMapping(value = "/deviceUpdate", params = "cancel")
-    public String postDeviceUpdateCancel(@ModelAttribute DeviceForm form,
-    		Model model) {
+    public String postDeviceUpdateCancel(@ModelAttribute DeviceForm form, Model model) {
     	
     	//ユーザー一覧画面を表示
     	return getDeviceList(model);

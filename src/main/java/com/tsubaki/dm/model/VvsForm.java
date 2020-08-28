@@ -1,6 +1,7 @@
 package com.tsubaki.dm.model;
 
 
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
 
 import lombok.Data;
@@ -9,7 +10,7 @@ import lombok.Data;
 public class VvsForm {
 
     //必須入力
-    @NotBlank(groups = ValidGroup1.class, message = "{require_check}")
+    @Max(100)
     private int vvsId; // vvsID
 
     //必須入力

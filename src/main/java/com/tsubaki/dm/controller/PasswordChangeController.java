@@ -38,7 +38,7 @@ public class PasswordChangeController {
         //コンテンツ部分にユーザー詳細を表示するための文字列を登録
         model.addAttribute("contents", "dev/home :: home_contents");
 
-		return "dev/homeLayout";
+		return "com/homeLayout";
 		
 	}
 	

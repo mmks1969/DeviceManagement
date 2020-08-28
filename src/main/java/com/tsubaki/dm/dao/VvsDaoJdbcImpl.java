@@ -78,7 +78,7 @@ public class VvsDaoJdbcImpl implements VvsDao {
         return rowNumber;
     }
 
-    // m_vvsのレコードを１件登録.
+    // m_vvsのレコードを一件登録
     @Override
     public int insertOne(VvsBean vvsBean) throws DataAccessException {
     	
@@ -90,6 +90,17 @@ public class VvsDaoJdbcImpl implements VvsDao {
     	
     	return rowNumber;
     }
+    
+    // m_vvsのレコードを１件削除.
+    @Override
+    public int deleteOne(int vvsId) throws DataAccessException {
+    	
+        //１件削除
+        int rowNumber = jdbc.update("DELETE FROM m_vvs WHERE vvs_id = ?", vvsId);
+
+        return rowNumber;
+    }
+    
     
     // デバイスIDの最大値を取得
     @Override

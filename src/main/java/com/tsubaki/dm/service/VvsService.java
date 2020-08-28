@@ -116,4 +116,24 @@ public class VvsService {
     public int getMaxNo() {
     	return vvsDao.getMaxNo();
     }
+    
+    /**
+     * １件削除用メソッド.
+     */
+    public boolean deleteOne(int vvsId) {
+
+        // １件削除
+        int rowNumber = vvsDao.deleteOne(vvsId);
+
+        // 判定用変数
+        boolean result = false;
+
+        if (rowNumber > 0) {
+            // delete成功
+            result = true;
+        }
+        return result;
+    }
+
+
 }

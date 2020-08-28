@@ -60,9 +60,9 @@ public class HomeController {
     	log.info("HomeController End");
 
         //コンテンツ部分にユーザー詳細を表示するための文字列を登録
-        model.addAttribute("contents", "dev/home :: home_contents");
+        model.addAttribute("contents", "home/home :: home_contents");
 
-        return "dev/homeLayout";
+        return "com/homeLayout";
     }
 
     // ユーザー一覧画面のGET用メソッド
@@ -81,7 +81,7 @@ public class HomeController {
     	int count = userService.count();
     	model.addAttribute("userListCount",count);
     	
-    	return "dev/homeLayout";
+    	return "com/homeLayout";
     }
     
     @GetMapping("/userDetail/{id:.+}")
@@ -111,13 +111,12 @@ public class HomeController {
     		// Modelに登録
     		model.addAttribute("userSignupForm", form);
     	}
-    	return "dev/homeLayout";
+    	return "com/homeLayout";
     }
     
     // ユーザー更新要処理
     @PostMapping(value = "/userDetail", params = "update")
     public String postUserDetailUpdate(@ModelAttribute UserSignupForm form, Model model) {
-    	System.out.println("更新ボタンの処理");
     	
     	// Userインスタンスの生成
     	User user = new User();
@@ -155,7 +154,6 @@ public class HomeController {
     // ユーザー削除用処理
     @PostMapping(value = "userDetail",params = "delete")
     public String postUserDetailDelete(@ModelAttribute UserSignupForm form, Model model) {
-    	System.out.println("削除ボタンの処理");
     	
     	// 削除実行
     	boolean result = userService.deleteOne(form.getUserId());
@@ -224,7 +222,7 @@ public class HomeController {
     	model.addAttribute("contents","login/admin :: admin_contents");
     	
     	// レイアウト用テンプレート
-    	return "dev/home_Layout";
+    	return "com/home_Layout";
     }
 
 }
