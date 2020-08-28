@@ -13,8 +13,6 @@ import org.springframework.stereotype.Repository;
 
 import com.tsubaki.dm.model.FileBean;
 
-import net.minidev.asm.ConvertDate.StringCmpNS;
-
 @Repository("FileDaoJdbcImpl")
 public class FileDaoJdbcImpl implements FileDao {
 
