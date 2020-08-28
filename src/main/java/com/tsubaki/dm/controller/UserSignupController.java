@@ -1,7 +1,5 @@
 package com.tsubaki.dm.controller;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -74,9 +72,7 @@ public class UserSignupController {
 		user.setUserName(form.getUserName());
 		user.setBirthday(form.getBirthday());
 		user.setAge(form.getAge());
-//		user.setMarriage(form.isMarriage());
 		user.setMarriage(form.isMarriage());
-//		user.setRole("ROLE_GENERAL");
 		
 		// ユーザー登録処理
 		boolean result = userService.insert(user);

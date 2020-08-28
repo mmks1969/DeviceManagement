@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8"></meta>
+</head>
+<body>
+    <div th:fragment="vvsUpdate_contents">
+        <div class="page-header my-3">
+            <h1>更新画面</h1>
+        </div>
+        <div class="row">
+            <div class="col-lg-5">
+                <form method="post" th:action="@{/vvsUpdate}" th:object="${vvsForm}">
+                    <table class="table table-bordered table-hover">
+                        <!-- デバイスID（入力不可） -->
+                        <tr>
+                            <th scope="col" class="text-right">vvsID</th>
+                            <td scope="col">
+                                <div class="form-group">
+                                    <input type="text" class="form-control"
+                                        th:field="*{vvsId}"
+                                        readonly="readonly" />
+                                </div>
+                            </td>
+                        </tr>
+                        <!-- 並び順 -->
+                        <tr>
+                            <th scope="col" class="text-right">並び順</th>
+                            <td>
+                                <div class="form-group"
+                                    th:classappend="${#fields.hasErrors('sortKey')} ? 'has-error'">
+                                    <input type="text" class="form-control"
+                                        th:field="*{sortKey}" />
+                                    <span class="text-danger"
+                                        th:if="${#fields.hasErrors('sortKey')}"
+                                        th:errors="*{sortKey}">
+                                        sortKey error
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                        <!-- キー -->
+                        <tr>
+                            <th scope="col" class="text-right">キー</th>
+                            <td>
+                                <div class="form-group"
+                                    th:classappend="${#fields.hasErrors('key')} ? 'has-error'">
+                                    <input type="text" class="form-control"
+                                        th:field="*{key}" />
+                                    <span class="text-danger"
+                                        th:if="${#fields.hasErrors('key')}"
+                                        th:errors="*{key}">
+                                        key error
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                        <!-- 値 -->
+                        <tr>
+                            <th scope="col" class="text-right">値</th>
+                            <td>
+                                <div class="form-group"
+                                    th:classappend="${#fields.hasErrors('value')} ? 'has-error'">
+                                    <input type="text" class="form-control"
+                                        th:field="*{value}" />
+                                    <span class="text-danger"
+                                        th:if="${#fields.hasErrors('value')}"
+                                        th:errors="*{value}">
+                                        value error
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+            		</table>
+                    <!-- 更新ボタン -->
+                    <button class="btn btn-primary btn-lg pull-right" type="submit" name="update">
+						更新
+                    </button>
+                    <!-- 削除ボタン -->
+                    <button class="btn btn-danger btn-lg" type="submit" name="delete">
+						削除
+                    </button>
+                    <!-- キャンセルボタン -->
+                    <button class="btn btn-danger btn-lg" type="submit" name="cancel">
+						キャンセル
+                    </button>
+                    <!-- 使用区分（usedAttribute） -->
+                    <input type="hidden" th:name="kbn" th:value="*{usedAttribute}"/>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

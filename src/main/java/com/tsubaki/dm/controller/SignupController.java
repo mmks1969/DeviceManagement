@@ -117,7 +117,7 @@ public class SignupController {
         // 初期IDをModelに登録
         form.setDeviceId(initId);
 
-        return "dev/homeLayout";
+        return "com/homeLayout";
     }
 
     /**

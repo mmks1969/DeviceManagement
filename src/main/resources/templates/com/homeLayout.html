@@ -16,28 +16,9 @@
     
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.21/fh-3.1.7/datatables.min.css"/>
 
-    <title>PDF表示</title>
-    
-    <script th:inline="javascript">
-	/*<![CDATA[*/
-
-	// ・初期処理
-	function funcStart() {
-		// 図面ファイルを設定する
-		funcZumenfile();
-	}
-
-	function funcZumenfile(key) {
-		var dest = /*[[@{/getImage}]]*/;
-		var $obj = document.getElementById("pdf");
-		$obj.data = dest + "?p_key=" + /*[[${p_key}]]*/;
-	}
-		
-	/*]]>*/
-	</script>
-    
+    <title>Home</title>
 </head>
-<body onload="JavaScript:funcStart();">
+<body>
     <!-- ===== ヘッダー（ナビゲーションバー） =====  -->
 	<div class='fixed-top'>
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -46,14 +27,37 @@
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="navmenu1">
-				<ul class="navbar-nav mr-auto">
+			    <ul class="navbar-nav mr-auto">
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{|/home|}">HOME</a>
+					</li>
+			    	<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">デバイス</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<a class="dropdown-item" th:href="@{'/deviceList'}">デバイスリスト</a>
+							<a class="dropdown-item" th:href="@{'/signup'}">デバイス登録</a>
+						</div>
+			    	</li>
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{|/userDetail/${#authentication.name}|}">アカウント管理</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" sec:authorize="hasRole('ADMIN')" th:href="@{'/userList'}">ユーザー一覧</a>
+					</li>
+			    	<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" sec:authorize="hasRole('ADMIN')" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">マスタ管理</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<a class="dropdown-item" th:href="@{'/vvsList?kbn=maker'}">メーカー</a>
+							<a class="dropdown-item" th:href="@{'/vvsList?kbn=deviceKbn'}">デバイス区分</a>
+						</div>
+			    	</li>
 				</ul>
 				<ul class="navbar-nav">
 					<li class="nav-item">
 						<a class="nav-link active">ユーザー名：<span sec:authentication="principal.appUserName"></span></a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" th:href="@{'/logout'}">　LOGOUT　</a>
+						<a class="nav-link" th:href="@{'/logout'}">LOGOUT</a>
 					</li>
 				</ul>
 			</div>
@@ -61,16 +65,9 @@
 	</div>
 
     <!-- ===== コンテンツ ===== --> 
-	<div style="margin-top : 20px" class="container-fluid">
+	<div class="container-fluid">
 		<div class="row">
-			<!-- pdf情報表示 -->
-			<div class="col-xs-12 col-md-3"  th:object="${fileInfo}">
-				<p class="m-0 bg-primary text-light text-center">デバイスＩＤ</p><P><span th:text="*{deviceId}">test</span></p>
-				<p class="m-0 bg-primary text-light text-center">ファイル名</p><P><span  th:text="*{originalFileName}">test</span></p>
-				<p class="m-0 bg-primary text-light text-center">登録日</p><P><span  th:text="*{creationdate}">test</span></p>
-			</div>
-			<!-- pdf表示 -->
-			<div class="col-xs-12 col-md-9">
+			<div class="col-md-12 ml-sm-auto col-lg-12 pt-1 px-4">
 				<div th:include="__${contents}__"></div>
 			</div>
 		</div>

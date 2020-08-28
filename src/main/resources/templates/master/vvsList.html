@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8"></meta>
+</head>
+<body th:scroll="yes">
+    <!-- コンテンツ部分 -->
+    <div th:fragment="vvsList_contents">
+        <div class="col-lg-6 mr-5 pt-4">
+        <table class="table table-striped table-bordered table-hover table-sm">
+        	<thead class="thead-dark">
+	            <tr class="text-center">
+	                <th scope="col">並び順</th>
+	                <th scope="col">キー</th>
+	                <th scope="col">値</th>
+	                <th scope="col"></th>
+	            </tr>
+            </thead>
+            <tbody>
+	            <tr th:each="kbnList : ${kbnList}">
+	                <td class="text-center" th:text="${kbnList.sortKey}"></td>
+	                <td th:text="${kbnList.key}"></td>
+	                <td th:text="${kbnList.value}"></td>
+	                <td class="text-center">
+	                    <!-- 詳細画面へのリンク -->
+	                    <a class="btn btn-primary" th:href="@{'/vvsDetail/' + ${kbnList.vvsId}}">
+				                        詳細
+	                    </a>
+	                </td>
+	            </tr>
+            </tbody>
+        </table>
+        </div>
+        <!-- 件数 -->
+        <label th:text=" '登録件数：' + ${kbnListCount} + '件' "></label><br/>
+        <!-- 更新・削除処理の結果表示用 -->
+        <label class="text-info" th:text="${result}">結果表示</label><br/>
+        <!-- 新規登録 -->
+        <a class="btn btn-primary" th:href="@{'/insVvs?kbn='}+${kbn}">新規登録</a>
+    </div>
+</body>
+</html>

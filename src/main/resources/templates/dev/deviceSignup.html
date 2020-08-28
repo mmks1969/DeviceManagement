@@ -13,7 +13,7 @@
 <body>
     <div th:fragment="signup_contents">
 
-    <div class="col-sm-5">
+    <div class="col-lg-6">
         <div class="page-header my-3">
             <h1>新規登録</h1>
         </div>
@@ -21,7 +21,7 @@
             <table class="table table-bordered table-hover">
                 <!-- ユーザーIDの入力エリア -->
                 <tr>
-                    <th scope="col"class="active col-sm-3 text-right ">デバイスID</th>
+                    <th scope="col"class="active text-right ">デバイスID</th>
                     <td>
                         <div class="form-group"
                             th:classappend="${#fields.hasErrors('deviceId')} ? 'has-error'">
@@ -126,7 +126,7 @@
                     </td>
                 </tr>
                 <tr>
-                	<th class="active text-right">添付ファイル</th>
+                	<th class="active text-right">添付</th>
                 	<td>
                 		<input th:field="*{file}" type="file" multiple/>
                 	</td>
